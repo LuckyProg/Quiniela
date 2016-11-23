@@ -111,7 +111,8 @@ if(sesion.getAttribute("usuario") == null){
                                     <td>
                                         <input name="id_partido" type="hidden" value="<%=par.getId_partido()%>">
                                         <input name="fecha" type="hidden" value="<%=par.getFecha()%>">
-                                        <input name="semana" type="hidden" onkeypress="return soloNum(event)" value="<%=par.getSemana()%>">
+                                        <input name="pr_mar" type="hidden" value="<%=par.isPr_mar()%>">
+                                        <input name="semana" type="hidden" value="<%=par.getSemana()%>">
                                         <%=par.getSemana()%>
                                     </td>
                                     <td>

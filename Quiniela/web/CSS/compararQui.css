@@ -1,0 +1,177 @@
+.enfrentamiento{
+     position: relative;
+    margin: 25px;
+    border-radius: 10px;
+    height: 100px;
+    background: #1a648a;
+    color: #f0f0f0;
+}
+
+.enfrentamiento div{
+    display: inline-block;
+    margin-right: -3px;
+    color: #0f0f0f;
+}
+
+.enfrentamiento .V{
+    position: relative;
+    width: 40%;
+    height: 100px;
+    vertical-align: top;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    font-size: 150%;
+    text-align: center;
+    padding: 24px;
+    color:black;
+      
+}
+.enfrentamiento .marcador{
+    position: relative;
+    width: 20%;
+    height: 100%;
+    background: white;
+}
+.enfrentamiento .marcador .mv{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    color:black;
+    text-align: right;
+    font-size: 150%;
+}
+.enfrentamiento .marcador .ml{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    color:black;
+    text-align: left;
+    font-size: 150%;
+}
+.icon-cross{color: #c33338;}
+.icon-checkmark{color:#0ef717; }
+
+.quinie{
+    padding: 30px;
+    position: absolute;
+    top: 5%;
+    left: 27%;
+    width: 60%;
+    height: auto;
+    background-color: rgba(0,0,0,.7);
+    border-radius: 20px 20px 20px 20px;
+}
+
+.semanal{
+    padding: 0;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+}
+.semanal ul li{
+    margin: 0;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    width: 5.5%;
+    height: 50px;
+    transition: .5s;
+    text-align: center;
+    
+}
+.semanal ul li:first-child {
+    border-radius: 30%;
+
+}
+
+.semanal ul li:last-child {
+    
+    border-radius: 30%;
+    
+}
+
+
+.semanal ul li:hover{
+    color: white;
+     background-color: rgba(0,0,0,.7);
+     cursor: pointer;
+}
+.semanal ul a{
+    text-decoration: none;
+    color: black;
+}
+#selecct{
+    color: white;
+     background-color: rgba(0,0,0,.7);
+}
+  
+
+
+.enfrentamiento .L{
+    position: relative;
+    width: 40%;
+    height: 100px;
+    vertical-align: top;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 150%;
+    text-align: center;
+    padding: 24px;
+    color: black;
+}
+
+.jugadores form{
+    padding: 10px;
+    margin: 0;
+    margin-top: 1%;
+    width: 100%;
+    position: relative;
+    background-color: #4CAF50;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-size: 25px;
+    color: #000;
+}
+.jugadores form span{
+    color: #000;
+}
+.jugadores form input{
+    border: 1px solid black;
+    color: black;
+    font-size: 15px;
+    padding: 2px;
+}
+.jugadores form #selet{
+    background: #4CAF50;
+    font-family: 'Bree Serif', serif;
+    color: black;
+    width: 200px;
+    height: 40px;
+}
+.jugadores form #selet optgroup{
+    font-family: 'Bree Serif', serif;
+    font-size: 20px;
+}
+.jugadores form #selet optgroup option:selected{
+    font-family: 'Bree Serif', serif;
+    font-size: 20px;
+}
+.partido3{
+    padding: 10px;
+    margin: 0;
+    margin-top: 1%;
+    width: 100%;
+    position: relative;
+    background-color: rgba(0,0,0,.9);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.partido3 h2{
+    color:#f0f0f0;
+}

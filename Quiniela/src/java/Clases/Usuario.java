@@ -222,7 +222,7 @@ public class Usuario {
                     sql="SELECT * FROM usuario ORDER BY rol";
                 break;
                 case 5:
-                    sql="SELECT * FROM usuario ORDER BY survival";
+                    sql="SELECT * FROM usuario ORDER BY survival DESC";
                 break;
             
             }
@@ -368,6 +368,40 @@ public class Usuario {
         
         return usu;
         
+    }
+    
+    public String mostrarNombre(int id_usuario){
+        
+        String nombre = " ";
+        
+        Connection cn=null;
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        
+        
+        try{
+            cn=Conexion.getConexion();
+            String sql="select nombre from usuario where id_usuario = ?";
+            pr=cn.prepareStatement(sql);
+            pr.setInt(1, id_usuario);
+            rs=pr.executeQuery();
+            while(rs.next()){
+                nombre = rs.getString("nombre");
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                cn.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        
+        
+        return nombre;
     }
     
     public String getNombre() {

@@ -1,3 +1,4 @@
+<%@page import="Clases.Puntaje"%>
 <%@page import="Clases.Enfrentamiento"%>
 <%@page import="java.util.Vector"%>
 <%@page import="Clases.Liga"%>
@@ -188,14 +189,22 @@ if(sesion.getAttribute("usuario") == null){
                 <%
                     Vector<Enfrentamiento> enfrents = new Enfrentamiento().mostrarEnfrentamientos(semana, liga);
                     for(Enfrentamiento E:enfrents){
+                    boolean mio = false;
+                    if(E.getVisitante().equalsIgnoreCase(sesion.getAttribute("nombre").toString()) || E.getLocal().equalsIgnoreCase(sesion.getAttribute("nombre").toString())){
+                        mio = true;
+                    }
+                    else{
+                        mio = false;
+                    }
                 %>
-                <div class="enfrentamiento">
+                <div class="enfrentamiento" <%if(mio){%>style = "background:darkorange;"<%}%>>
                     
                     <div class="V">
                         
                         <div class="nombre">
                             <%=E.getVisitante()%><br>
-                            <span class="icon-checkmark"></span>
+                            <%if(E.getGanador() == E.getVid()){%><span class="icon-checkmark"></span><%}%>
+                            <%if(E.getGanador() == E.getLid()){%><span class="icon-cross"></span><%}%>
                         </div>
                         
                         
@@ -204,14 +213,14 @@ if(sesion.getAttribute("usuario") == null){
                     
                     <div class="marcador">
                         <div class="mv">
-                            <i>P&nbsp;</i> <b><%=E.getVp()%></b> -<br>
-                            <i>DL&nbsp;</i> <b><%=E.getVdl()%></b> -<br>
-                            <i>DS&nbsp;</i> <b><%=E.getVds()%></b> -
+                            <i>P&nbsp;</i> <b><%=E.getVid()!=1000 ? E.getVp() : new Puntaje().promedio(semana)%></b> -<br>
+                            <i>DL&nbsp;</i> <b><%=E.getVid()!=1000 ? E.getVdl() : new Puntaje().peordl(semana)%></b> -<br>
+                            <i>DS&nbsp;</i> <b><%=E.getVid()!=1000 ? E.getVds() : new Puntaje().peords(semana)%></b> -
                         </div>
                         <div class="ml">
-                            -&nbsp;<b><%=E.getLp()%></b> <i>P</i><br>
-                            -&nbsp;<b><%=E.getLdl()%></b> <i>DL</i><br>
-                            -&nbsp;<b><%=E.getLds()%></b> <i>DS</i>
+                            -&nbsp;<b><%=E.getLid()!=1000 ? E.getLp() : new Puntaje().promedio(semana)%></b> <i>P</i><br>
+                            -&nbsp;<b><%=E.getLid()!=1000 ? E.getLdl() : new Puntaje().peordl(semana)%></b> <i>DL</i><br>
+                            -&nbsp;<b><%=E.getLid()!=1000 ? E.getLds() : new Puntaje().peords(semana)%></b> <i>DS</i>
                         </div>
                     </div>
                     
@@ -219,7 +228,8 @@ if(sesion.getAttribute("usuario") == null){
                         
                         <div class="nombre">     
                             <%=E.getLocal()%><br>
-                            <span class="icon-cross"></span>
+                            <%if(E.getGanador() == E.getLid()){%><span class="icon-checkmark"></span><%}%>
+                            <%if(E.getGanador() == E.getVid()){%><span class="icon-cross"></span><%}%>
                         </div>
                         
                     </div>

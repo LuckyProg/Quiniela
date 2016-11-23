@@ -53,7 +53,7 @@ public class Quinela {
             
             sql="select  p.id_partido, p.fecha, p.pr_mar, v.id_equipo as id_visitante, v.nombre_equipo as visitante, v.imagen as imagenvis, l.id_equipo as id_local, l.nombre_equipo as local, l.imagen as imagenloc,"
                     + " pr.ganador, pr.mayor, pr.menor, pr.acierto, pr.no_marcador from partido as p, equipo as v, equipo as l, pronostico as pr  where p.local=l.id_equipo"
-                    + " and p.visitante=v.id_equipo and pr.id_partido = p.id_partido and p.semana = ? and pr.id_usuario = ?";
+                    + " and p.visitante=v.id_equipo and pr.id_partido = p.id_partido and p.semana = ? and pr.id_usuario = ? order by p.id_partido";
             
             pr=cn.prepareStatement(sql);
             pr.setInt(1, semana);
@@ -179,55 +179,6 @@ public class Quinela {
         
         return qui;
     }
-    /*public Quinela crearPronosticoFail(){
-        
-        Quinela qui = null;
-        Connection cn=null;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
-        
-        try{
-            
-            qui= new Quinela();
-            cn = Conexion.getConexion();
-            String sql = "INSERT INTO pronostico (id_usuario, id_partido, no_marcador) VALUES(?,?,?)";
-            ps = cn.prepareStatement(sql); 
-            
-            Vector<Usuario> usuarios=new Usuario().mostrarJugadores();
-            Vector<Partido> partidos;
-            for(Usuario usu:usuarios){
-                for(int i = 1; i<18; i++){
-                    partidos=new Partido().mostrarPartidos(String.valueOf(i));
-                    for(Partido par:partidos){
-
-                        ps.setInt(1, usu.getId());
-                        ps.setInt(2, par.getId_partido());
-                        ps.setInt(3, 0); 
-                        ps.executeUpdate();
-                        System.out.println(usu.getId());
-
-                    }
-                }
-            }
-       
-
-        }catch(Exception e){
-            e.printStackTrace();
-            qui = null;
-        }finally{
-            try{
-                //rs.close();
-                ps.close();
-            }catch(SQLException ex){
-                qui = null;
-                ex.printStackTrace();
-            }
-        }
-        
-        
-        
-        return qui;
-    }*/
     
     public String obtenerFecha(){
         String fecha = "";
@@ -263,7 +214,7 @@ public class Quinela {
         return fecha;
     }
     
-    public Quinela guardarAcierto(boolean acierto, int id_usuario, int id_partido){
+    public Quinela guardarAcierto(boolean pr_mar, String mayoreal, String menoreal, int id_partido, int semana, int ganadoreal){
         
         Quinela qui = null;
         Connection cn=null;
@@ -274,17 +225,456 @@ public class Quinela {
             
             qui= new Quinela();
             cn = Conexion.getConexion();
-            String sql = "update pronostico set acierto = ? where id_usuario =? and id_partido =?;";
-            ps = cn.prepareStatement(sql);
-            ps.setBoolean(1, acierto);
-            ps.setInt(2, id_usuario);
-            ps.setInt(3, id_partido);
+            String sql;
             
-             
-            ps.executeUpdate();
+            Puntaje puntazo = new Puntaje();
+            int dl = 0; 
+            int ds = 0; 
+                
+            Vector<Usuario> usuarios=new Usuario().mostrarJugadores();
+            Vector <Quinela> q ;
+            Vector <Integer> usug = new Vector<>();
+            
+                for(Usuario usu:usuarios){
+                    q =new Quinela().mostrarPronosticos(usu.getId(),semana);
+                    for(Quinela quis:q){
+                        if(id_partido == quis.getId_partido()){
+                            if(quis.getGanador() == ganadoreal){
+                                sql = "update pronostico set acierto = ? where id_usuario =? and id_partido =?;";
+                                ps = cn.prepareStatement(sql);
+                                ps.setBoolean(1, true);
+                                ps.setInt(2, usu.getId());
+                                ps.setInt(3, id_partido);
+                                ps.executeUpdate();
+                                
+                                sql = "update puntaje set p = p + 1 where id_usuario = ? and semana = ?;";
+                                ps = cn.prepareStatement(sql);
+                                ps.setInt(1,usu.getId());
+                                ps.setInt(2,semana);
+                                
+                                ps.executeUpdate();
+                                
+                                usug.add(usu.getId());
+                            }
+                            else{
+                                sql = "update pronostico set acierto = ? where id_usuario =? and id_partido =?;";
+                                ps = cn.prepareStatement(sql);
+                                ps.setBoolean(1, false);
+                                ps.setInt(2, usu.getId());
+                                ps.setInt(3, id_partido);
+                                ps.executeUpdate();
+                            }
+                            if(pr_mar){
+                                int Mr = Integer.parseInt(mayoreal);
+                                int mr = Integer.parseInt(menoreal);
+                                int dM = 0;
+                                int dm = 0;
+                                if(Mr>quis.getMayor()){
+                                    dM = Mr - quis.getMayor();
+                                }else{
+                                    dM = quis.getMayor() - Mr;
+                                }
+                                if(mr>quis.getMenor()){
+                                    dm = mr - quis.getMenor();
+                                }else{
+                                    dm = quis.getMenor() - mr;
+                                }
+                                dl = dM + dm;
+                                puntazo.actualizar_dl(usu.getId(), dl, semana);
+                            }
+                            if(qui.getNo_marcador() == 2){
+                                int Mr = Integer.parseInt(mayoreal);
+                                int mr = Integer.parseInt(menoreal);
+                                int dM = 0;
+                                int dm = 0;
+                                if(Mr>quis.getMayor()){
+                                    dM = Mr - qui.getMayor();
+                                }else{
+                                    dM = quis.getMayor() - Mr;
+                                }
+                                if(mr>qui.getMenor()){
+                                    dm = mr - quis.getMenor();
+                                }else{
+                                    dm = qui.getMenor() - mr;
+                                }
+                                ds = dM + dm;
+                                puntazo.actualizar_ds(usu.getId(), ds, semana);
+                            }
+                        }
+                    }
+                }
+                int numL = new Liga().numL();
+                Vector<Enfrentamiento> enfrents;
+                String confl = " ";
+                String confv = " ";
+                String regl = " ";
+                String regv = " ";
+                int jgl = 0;
+                int jgv = 0;
+                int jpl = 0;
+                int jpv = 0;
+                int jel = 0;
+                int jev = 0;
+                String divl = " ";
+                String divv = " ";
+                String afcl = " ";
+                String afcv = " ";
+                String nfcl = " ";
+                String nfcv = " ";
+                int pl = 0;
+                int pv = 0;
+                int dll = 0;
+                int dlv = 0;
+                int dsl = 0;
+                int dsv = 0;
+                int ganador = 0;
+                for(int l = 1; l<=numL; l++){
+                    
+                    enfrents = new Enfrentamiento().mostrarEnfrentamientos(semana, l);
+                    for(Enfrentamiento E:enfrents){
+                        sql = "select l.conferencia, l.region, l.jg, l.jp, l.je, l.divi, l.afc, l.nfc, p.p, p.dl, p.ds from liga as l, usuario as u, puntaje as p "
+                                + "where l.id_usuario = u.id_usuario and p.id_usuario = u.id_usuario and p.semana = ? and u.id_usuario=?";
+                        ps=cn.prepareStatement(sql);
+                        ps.setInt(1, semana);
+                        ps.setInt(2, E.getLid());
+                        rs=ps.executeQuery();
+                        while(rs.next()){
+                            confl = rs.getString("conferencia");
+                            regl = rs.getString("region");
+                            jgl = rs.getInt("jg");
+                            jpl = rs.getInt("jp");
+                            jel = rs.getInt("je");
+                            divl = rs.getString("divi");
+                            afcl = rs.getString("afc");
+                            nfcl = rs.getString("nfc");
+                            pl = rs.getInt("p");
+                            dll = rs.getInt("dl");
+                            dsl = rs.getInt("ds");
+                        }
+                        if(E.getLid()==1000){
+                            pl = new Puntaje().promedio(semana);
+                            dll = new Puntaje().peordl(semana);
+                            dsl = new Puntaje().peords(semana);
+                        }
+                        sql = "select l.conferencia, l.region, l.jg, l.jp, l.je, l.divi, l.afc, l.nfc, p.p, p.dl, p.ds from liga as l, usuario as u, puntaje as p "
+                                + "where l.id_usuario = u.id_usuario and p.id_usuario = u.id_usuario and p.semana = ? and u.id_usuario=?";
+                        ps=cn.prepareStatement(sql);
+                        ps.setInt(1, semana);
+                        ps.setInt(2, E.getVid());
+                        rs=ps.executeQuery();
+                        int aux1 = 0;
+                        int aux2 = 0;
+                        while(rs.next()){
+                            confv = rs.getString("conferencia");
+                            regv = rs.getString("region");
+                            jgv = rs.getInt("jg");
+                            jpv = rs.getInt("jp");
+                            jev = rs.getInt("je");
+                            divv = rs.getString("divi");
+                            afcv = rs.getString("afc");
+                            nfcv = rs.getString("nfc");
+                            pv = rs.getInt("p");
+                            dlv = rs.getInt("dl");
+                            dsv = rs.getInt("ds");
+                        }
+                        if(E.getVid()==1000){
+                            pv = new Puntaje().promedio(semana);
+                            dlv = new Puntaje().peordl(semana);
+                            dsv = new Puntaje().peords(semana);
+                        }
+                        
+                        if(pl>pv){
+                            ganador = E.getLid();
+                            jgl++;
+                            jpv++;
+                        }
+                        else if(pv>pl){
+                            ganador = E.getVid();
+                            jpl++;
+                            jgv++;
+                        }
+                        else if(pv==pl){
+                            if(dll<dlv){
+                                ganador = E.getLid();
+                                jgl++;
+                                jpv++;
+                            }
+                            else if(dlv<dll){
+                                ganador = E.getVid();
+                                jpl++;
+                                jgv++;
+                            }
+                            else if(dlv==dll){
+                                if(dsl<dsv){
+                                    ganador = E.getLid();
+                                    jgl++;
+                                    jpv++;
+                                }
+                                else if(dsv<dsl){
+                                    ganador = E.getVid();
+                                    jpl++;
+                                    jgv++;
+                                }
+                                else if(dsv==dsl){
+                                    ganador = 0;
+                                    jel++;
+                                    jev++;
+                                }
+                            }
+                        }
+                        
+                        if(confl.equalsIgnoreCase("AMERICANA")){
+                            
+                            if(confl.equalsIgnoreCase(confv)){
+                                
+                                aux1 = (String.valueOf((afcl.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(afcl.substring(0, 1)):Integer.parseInt(afcl.substring(0, 2));
+                                aux2 = (String.valueOf((afcl.substring(afcl.length()-2, afcl.length())).charAt(0))).equals("-") ? Integer.parseInt(afcl.substring(afcl.length()-1, afcl.length())):Integer.parseInt(afcl.substring(afcl.length()-2, afcl.length())); 
+                                if(E.getGanador()!=E.getLid()){
+                                    aux1 = ganador == E.getLid() ? aux1+1:aux1;
+                                }
+                                else{
+                                    aux1 = ganador == E.getLid() ? aux1:aux1-1;
+                                }
+                                if(E.getGanador()!=E.getVid()){
+                                    aux2 = ganador == E.getVid() ? aux2+1:aux2;
+                                }
+                                else{
+                                    aux2 = ganador == E.getVid() ? aux2:aux2-1;
+                                }
+                                afcl = aux1 + "-" + aux2;
+                                
+                                aux1 = (String.valueOf((afcv.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(afcv.substring(0, 1)):Integer.parseInt(afcv.substring(0, 2)); 
+                                aux2 = (String.valueOf((afcv.substring(afcv.length()-2, afcv.length())).charAt(0))).equals("-") ? Integer.parseInt(afcv.substring(afcv.length()-1, afcv.length())):Integer.parseInt(afcv.substring(afcv.length()-2, afcv.length())); 
+                                if(E.getGanador()!=E.getLid()){
+                                    aux2 = ganador == E.getLid() ? aux2+1:aux2;
+                                }
+                                else{
+                                    aux2 = ganador == E.getLid() ? aux2:aux2-1;
+                                }
+                                if(E.getGanador()!=E.getVid()){
+                                    aux1 = ganador == E.getVid() ? aux1+1:aux1;
+                                }
+                                else{
+                                    aux1 = ganador == E.getVid() ? aux1:aux1-1;
+                                }
+                                afcv = aux1 + "-" + aux2;
+                                
+                            }
+
+                            else{
+                                
+                                aux1 = (String.valueOf((nfcl.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(nfcl.substring(0, 1)):Integer.parseInt(nfcl.substring(0, 2)); 
+                                aux2 = (String.valueOf((nfcl.substring(nfcl.length()-2, nfcl.length())).charAt(0))).equals("-") ? Integer.parseInt(nfcl.substring(nfcl.length()-1, nfcl.length())):Integer.parseInt(nfcl.substring(nfcl.length()-2, nfcl.length())); 
+                                if(E.getGanador()!=E.getLid()){
+                                    aux1 = ganador == E.getLid() ? aux1+1:aux1;
+                                }
+                                else{
+                                    aux1 = ganador == E.getLid() ? aux1:aux1-1;
+                                }
+                                if(E.getGanador()!=E.getVid()){
+                                    aux2 = ganador == E.getVid() ? aux2+1:aux2;
+                                }
+                                else{
+                                    aux2 = ganador == E.getVid() ? aux2:aux2-1;
+                                }
+                                nfcl = aux1 + "-" + aux2;
+                                
+                                aux1 = (String.valueOf((afcv.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(afcv.substring(0, 1)):Integer.parseInt(afcv.substring(0, 2)); 
+                                aux2 = (String.valueOf((afcv.substring(afcv.length()-2, afcv.length())).charAt(0))).equals("-") ? Integer.parseInt(afcv.substring(afcv.length()-1, afcv.length())):Integer.parseInt(afcv.substring(afcv.length()-2, afcv.length())); 
+                                if(E.getGanador()!=E.getLid()){
+                                    aux2 = ganador == E.getLid() ? aux2+1:aux2;
+                                }
+                                else{
+                                    aux2 = ganador == E.getLid() ? aux2:aux2-1;
+                                }
+                                if(E.getGanador()!=E.getVid()){
+                                    aux1 = ganador == E.getVid() ? aux1+1:aux1;
+                                }
+                                else{
+                                    aux1 = ganador == E.getVid() ? aux1:aux1-1;
+                                }
+                                afcv = aux1 + "-" + aux2;
+                                
+                            }
+
+                        }
+                        if(confl.equalsIgnoreCase("NACIONAL")){
+                            
+                            if(confl.equalsIgnoreCase(confv)){
+                                
+                                aux1 = (String.valueOf((nfcl.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(nfcl.substring(0, 1)):Integer.parseInt(nfcl.substring(0, 2)); 
+                                aux2 = (String.valueOf((nfcl.substring(nfcl.length()-2, nfcl.length())).charAt(0))).equals("-") ? Integer.parseInt(nfcl.substring(nfcl.length()-1, nfcl.length())):Integer.parseInt(nfcl.substring(nfcl.length()-2, nfcl.length())); 
+                                if(E.getGanador()!=E.getLid()){
+                                    aux1 = ganador == E.getLid() ? aux1+1:aux1;
+                                }
+                                else{
+                                    aux1 = ganador == E.getLid() ? aux1:aux1-1;
+                                }
+                                if(E.getGanador()!=E.getVid()){
+                                    aux2 = ganador == E.getVid() ? aux2+1:aux2;
+                                }
+                                else{
+                                    aux2 = ganador == E.getVid() ? aux2:aux2-1;
+                                }
+                                nfcl = aux1 + "-" + aux2;
+                                
+                                aux1 = (String.valueOf((nfcv.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(nfcv.substring(0, 1)):Integer.parseInt(nfcv.substring(0, 2)); 
+                                aux2 = (String.valueOf((nfcv.substring(nfcv.length()-2, nfcv.length())).charAt(0))).equals("-") ? Integer.parseInt(nfcv.substring(nfcv.length()-1, nfcv.length())):Integer.parseInt(nfcv.substring(nfcv.length()-2, nfcv.length())); 
+                                if(E.getGanador()!=E.getLid()){
+                                    aux2 = ganador == E.getLid() ? aux2+1:aux2;
+                                }
+                                else{
+                                    aux2 = ganador == E.getLid() ? aux2:aux2-1;
+                                }
+                                if(E.getGanador()!=E.getVid()){
+                                    aux1 = ganador == E.getVid() ? aux1+1:aux1;
+                                }
+                                else{
+                                    aux1 = ganador == E.getVid() ? aux1:aux1-1;
+                                }
+                                nfcv = aux1 + "-" + aux2;
+                                
+                            }
+
+                            else{
+                                
+                                aux1 = (String.valueOf((afcl.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(afcl.substring(0, 1)):Integer.parseInt(afcl.substring(0, 2)); 
+                                aux2 = (String.valueOf((afcl.substring(afcl.length()-2, afcl.length())).charAt(0))).equals("-") ? Integer.parseInt(afcl.substring(afcl.length()-1, afcl.length())):Integer.parseInt(afcl.substring(afcl.length()-2, afcl.length())); 
+                                if(E.getGanador()!=E.getLid()){
+                                    aux1 = ganador == E.getLid() ? aux1+1:aux1;
+                                }
+                                else{
+                                    aux1 = ganador == E.getLid() ? aux1:aux1-1;
+                                }
+                                if(E.getGanador()!=E.getVid()){
+                                    aux2 = ganador == E.getVid() ? aux2+1:aux2;
+                                }
+                                else{
+                                    aux2 = ganador == E.getVid() ? aux2:aux2-1;
+                                }
+                                afcl = aux1 + "-" + aux2;
+                                
+                                aux1 = (String.valueOf((nfcv.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(nfcv.substring(0, 1)):Integer.parseInt(nfcv.substring(0, 2)); 
+                                aux2 = (String.valueOf((nfcv.substring(nfcv.length()-2, nfcv.length())).charAt(0))).equals("-") ? Integer.parseInt(nfcv.substring(nfcv.length()-1, nfcv.length())):Integer.parseInt(nfcv.substring(nfcv.length()-2, nfcv.length())); 
+                                if(E.getGanador()!=E.getLid()){
+                                    aux2 = ganador == E.getLid() ? aux2+1:aux2;
+                                }
+                                else{
+                                    aux2 = ganador == E.getLid() ? aux2:aux2-1;
+                                }
+                                if(E.getGanador()!=E.getVid()){
+                                    aux1 = ganador == E.getVid() ? aux1+1:aux1;
+                                }
+                                else{
+                                    aux1 = ganador == E.getVid() ? aux1:aux1-1;
+                                }
+                                nfcv = aux1 + "-" + aux2;
+                                
+                            }
+
+                        }
+                        if(regl.equalsIgnoreCase(regv)){
+                            aux1 = (String.valueOf((divl.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(divl.substring(0, 1)):Integer.parseInt(divl.substring(0, 2)); 
+                            aux2 = (String.valueOf((divl.substring(divl.length()-2, divl.length())).charAt(0))).equals("-") ? Integer.parseInt(divl.substring(divl.length()-1, divl.length())):Integer.parseInt(divl.substring(divl.length()-2, divl.length())); 
+                            if(E.getGanador()!=E.getLid()){
+                                aux1 = ganador == E.getLid() ? aux1+1:aux1;
+                            }
+                            else{
+                                aux1 = ganador == E.getLid() ? aux1:aux1-1;
+                            }
+                            if(E.getGanador()!=E.getVid()){
+                                aux2 = ganador == E.getVid() ? aux2+1:aux2;
+                            }
+                            else{
+                                aux2 = ganador == E.getVid() ? aux2:aux2-1;
+                            }
+                            regl = aux1 + "-" + aux2;
+                            aux1 = (String.valueOf((divv.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(divv.substring(0, 1)):Integer.parseInt(divv.substring(0, 2)); 
+                            aux2 = (String.valueOf((divv.substring(divv.length()-2, divv.length())).charAt(0))).equals("-") ? Integer.parseInt(divv.substring(divv.length()-1, divv.length())):Integer.parseInt(divv.substring(divv.length()-2, divv.length())); 
+                            if(E.getGanador()!=E.getLid()){
+                                aux2 = ganador == E.getLid() ? aux2+1:aux2;
+                            }
+                            else{
+                                aux2 = ganador == E.getLid() ? aux2:aux2-1;
+                            }
+                            if(E.getGanador()!=E.getVid()){
+                                aux1 = ganador == E.getVid() ? aux1+1:aux1;
+                            }
+                            else{
+                                aux1 = ganador == E.getVid() ? aux1:aux1-1;
+                            }
+                            regv = aux1 + "-" + aux2;
+                        }
+                        
+                        sql = "update enfrentamiento set ganador = ? where id_enfrentamiento = ? ;";
+                        ps = cn.prepareStatement(sql);
+                        ps.setInt(1,ganador);
+                        ps.setInt(2,new Enfrentamiento().idEnfrentamientos(semana, E.getLid()));
+                        System.out.println(new Enfrentamiento().idEnfrentamientos(semana, E.getLid()));
+
+                        ps.executeUpdate();
+                        sql = "update liga set jg = ?, jp = ?, je = ?, divi = ?, afc = ?, nfc = ?, pf = pf + ?, pc = pc + ? where id_usuario = ? ;";
+                        ps = cn.prepareStatement(sql);
+                        ps.setInt(1,jgl);
+                        ps.setInt(2,jpl);
+                        ps.setInt(3,jel);
+                        ps.setString(4,divl);
+                        ps.setString(5,afcl);
+                        ps.setString(6,nfcl);
+                        for(Integer i:usug){
+                            if(i == E.getLid()){
+                                ps.setInt(7,1);
+                            }
+                            else{
+                                ps.setInt(7,0);
+                            }
+                            if(i == E.getVid()){
+                                ps.setInt(8,1);
+                            }
+                            else{
+                                ps.setInt(8,0);
+                            }
+                        }
+                        ps.setInt(9,E.getLid());
+                        
+                        ps.executeUpdate();
+                        
+                      ps.executeUpdate();
+                        sql = "update liga set jg = ?, jp = ?, je = ?, divi = ?, afc = ?, nfc = ?, pf = pf + ?, pc = pc + ? where id_usuario = ? ;";
+                        ps = cn.prepareStatement(sql);
+                        ps.setInt(1,jgv);
+                        ps.setInt(2,jpv);
+                        ps.setInt(3,jev);
+                        ps.setString(4,divv);
+                        ps.setString(5,afcv);
+                        ps.setString(6,nfcv);
+                        for(Integer i:usug){
+                            if(i == E.getVid()){
+                                ps.setInt(7,1);
+                            }
+                            else{
+                                ps.setInt(7,0);
+                            }
+                            if(i == E.getLid()){
+                                ps.setInt(8,1);
+                            }
+                            else{
+                                ps.setInt(8,0);
+                            }
+                        }
+                        ps.setInt(9,E.getVid());
+                        
+                        ps.executeUpdate();
+                    }
+                    
+                }
+                
 
         }catch(Exception e){
             e.printStackTrace();
+            System.out.println("-----------------------------------------------------------------------");
+            System.out.println(id_usuario);
+            System.out.println(semana);
             qui = null;
         }finally{
             try{
@@ -344,7 +734,6 @@ public class Quinela {
         vis = (vis*100)/numusus;
         return vis;
     }
-    
     
     public int getId_pronostico() {
         return id_pronostico;

@@ -60,7 +60,7 @@ if(sesion.getAttribute("usuario") == null){
                     </thead>
                     <tbody>
                         <%for (Liga l:ligas){
-                        if(l.getConferencia().equalsIgnoreCase("AMERICANA")){%>
+                        if(l.getConferencia().equalsIgnoreCase("AMERICANA") && l.getRegion().equalsIgnoreCase("N")){%>
                         <tr>
                             <td><%=l.getConferencia()%></td>
                             <td><%=l.getRegion()%></td>
@@ -77,6 +77,7 @@ if(sesion.getAttribute("usuario") == null){
                         <%}}%>
                     </tbody>
                 </table>
+                    <br>
                 <table class="sortable" id="ligaL">
                     
                     <thead>
@@ -86,7 +87,88 @@ if(sesion.getAttribute("usuario") == null){
                     </thead>
                     <tbody>
                         <%for (Liga l:ligas){
-                        if(l.getConferencia().equalsIgnoreCase("NACIONAL")){%>
+                        if(l.getConferencia().equalsIgnoreCase("AMERICANA") && l.getRegion().equalsIgnoreCase("E")){%>
+                        <tr>
+                            <td><%=l.getConferencia()%></td>
+                            <td><%=l.getRegion()%></td>
+                            <td><%=l.getNombreU()%></td>
+                            <td><%=l.getJg()%></td>
+                            <td><%=l.getJp()%></td>
+                            <td><%=l.getJe()%></td>
+                            <td><%=l.getDivi()%></td>
+                            <td><%=l.getAfc()%></td>
+                            <td><%=l.getNfc()%></td>
+                            <td><%=l.getPf()%></td>
+                            <td><%=l.getPc()%></td>      
+                        </tr>
+                        <%}}%>
+                    </tbody>
+                </table>
+                    <br>
+                <table class="sortable" id="ligaL">
+                    
+                    <thead>
+                        <tr>
+                            <th>CONFERENCIA</th>   <th>DIVISIÓN</th>    <th>USUARIO</th> <th>JG</th>  <th>JP</th> <th>JE</th> <th>DIV</th>    <th>AFC</th>    <th>NFC</th>    <th>PF</th> <th>PC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (Liga l:ligas){
+                        if(l.getConferencia().equalsIgnoreCase("AMERICANA") && l.getRegion().equalsIgnoreCase("O")){%>
+                        <tr>
+                            <td><%=l.getConferencia()%></td>
+                            <td><%=l.getRegion()%></td>
+                            <td><%=l.getNombreU()%></td>
+                            <td><%=l.getJg()%></td>
+                            <td><%=l.getJp()%></td>
+                            <td><%=l.getJe()%></td>
+                            <td><%=l.getDivi()%></td>
+                            <td><%=l.getAfc()%></td>
+                            <td><%=l.getNfc()%></td>
+                            <td><%=l.getPf()%></td>
+                            <td><%=l.getPc()%></td>      
+                        </tr>
+                        <%}}%>
+                    </tbody>
+                </table>
+                    <br>
+                <table class="sortable" id="ligaL">
+                    
+                    <thead>
+                        <tr>
+                            <th>CONFERENCIA</th>   <th>DIVISIÓN</th>    <th>USUARIO</th> <th>JG</th>  <th>JP</th> <th>JE</th> <th>DIV</th>    <th>AFC</th>    <th>NFC</th>    <th>PF</th> <th>PC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (Liga l:ligas){
+                        if(l.getConferencia().equalsIgnoreCase("AMERICANA") && l.getRegion().equalsIgnoreCase("S")){%>
+                        <tr>
+                            <td><%=l.getConferencia()%></td>
+                            <td><%=l.getRegion()%></td>
+                            <td><%=l.getNombreU()%></td>
+                            <td><%=l.getJg()%></td>
+                            <td><%=l.getJp()%></td>
+                            <td><%=l.getJe()%></td>
+                            <td><%=l.getDivi()%></td>
+                            <td><%=l.getAfc()%></td>
+                            <td><%=l.getNfc()%></td>
+                            <td><%=l.getPf()%></td>
+                            <td><%=l.getPc()%></td>      
+                        </tr>
+                        <%}}%>
+                    </tbody>
+                </table>
+                    <br>
+                <table class="sortable" id="ligaL">
+                    
+                    <thead>
+                        <tr>
+                            <th>CONFERENCIA</th>   <th>DIVISIÓN</th>    <th>USUARIO</th> <th>JG</th>  <th>JP</th> <th>JE</th> <th>DIV</th>    <th>AFC</th>    <th>NFC</th>    <th>PF</th> <th>PC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (Liga l:ligas){
+                        if(l.getConferencia().equalsIgnoreCase("NACIONAL") && l.getRegion().equalsIgnoreCase("N")){%>
                         <tr>
                             <td><%=l.getConferencia()%></td>
                             <td><%=l.getRegion()%></td>
@@ -114,6 +196,108 @@ if(sesion.getAttribute("usuario") == null){
                     </thead>
                     <tbody>
                         <%for (Liga daniela:ligasT){%>
+                        <tr>
+                            <td><%=daniela.getNombreU()%></td>
+                            <td><%=daniela.getRegion()%></td>    
+                        </tr>
+                        <%}%>
+                        
+                    </tbody>
+                </table>
+                        <br>
+                <table class="sortable" id="ligaL">
+                    
+                    <thead>
+                        <tr>
+                            <th>CONFERENCIA</th>   <th>DIVISIÓN</th>    <th>USUARIO</th> <th>JG</th>  <th>JP</th> <th>JE</th> <th>DIV</th>    <th>AFC</th>    <th>NFC</th>    <th>PF</th> <th>PC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (Liga l:ligas){
+                        if(l.getConferencia().equalsIgnoreCase("NACIONAL") && l.getRegion().equalsIgnoreCase("E")){%>
+                        <tr>
+                            <td><%=l.getConferencia()%></td>
+                            <td><%=l.getRegion()%></td>
+                            <td><%=l.getNombreU()%></td>
+                            <td><%=l.getJg()%></td>
+                            <td><%=l.getJp()%></td>
+                            <td><%=l.getJe()%></td>
+                            <td><%=l.getDivi()%></td>
+                            <td><%=l.getAfc()%></td>
+                            <td><%=l.getNfc()%></td>
+                            <td><%=l.getPf()%></td>
+                            <td><%=l.getPc()%></td>      
+                        </tr>
+                        <%}}%>
+                    </tbody>
+                </table>
+                    <br>
+                <table class="sortable" id="ligaL">
+                    
+                    <thead>
+                        <tr>
+                            <th>CONFERENCIA</th>   <th>DIVISIÓN</th>    <th>USUARIO</th> <th>JG</th>  <th>JP</th> <th>JE</th> <th>DIV</th>    <th>AFC</th>    <th>NFC</th>    <th>PF</th> <th>PC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (Liga l:ligas){
+                        if(l.getConferencia().equalsIgnoreCase("NACIONAL") && l.getRegion().equalsIgnoreCase("O")){%>
+                        <tr>
+                            <td><%=l.getConferencia()%></td>
+                            <td><%=l.getRegion()%></td>
+                            <td><%=l.getNombreU()%></td>
+                            <td><%=l.getJg()%></td>
+                            <td><%=l.getJp()%></td>
+                            <td><%=l.getJe()%></td>
+                            <td><%=l.getDivi()%></td>
+                            <td><%=l.getAfc()%></td>
+                            <td><%=l.getNfc()%></td>
+                            <td><%=l.getPf()%></td>
+                            <td><%=l.getPc()%></td>      
+                        </tr>
+                        <%}}%>
+                    </tbody>
+                </table>
+                    <br>
+                <table class="sortable" id="ligaL">
+                    
+                    <thead>
+                        <tr>
+                            <th>CONFERENCIA</th>   <th>DIVISIÓN</th>    <th>USUARIO</th> <th>JG</th>  <th>JP</th> <th>JE</th> <th>DIV</th>    <th>AFC</th>    <th>NFC</th>    <th>PF</th> <th>PC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (Liga l:ligas){
+                        if(l.getConferencia().equalsIgnoreCase("NACIONAL") && l.getRegion().equalsIgnoreCase("S")){%>
+                        <tr>
+                            <td><%=l.getConferencia()%></td>
+                            <td><%=l.getRegion()%></td>
+                            <td><%=l.getNombreU()%></td>
+                            <td><%=l.getJg()%></td>
+                            <td><%=l.getJp()%></td>
+                            <td><%=l.getJe()%></td>
+                            <td><%=l.getDivi()%></td>
+                            <td><%=l.getAfc()%></td>
+                            <td><%=l.getNfc()%></td>
+                            <td><%=l.getPf()%></td>
+                            <td><%=l.getPc()%></td>      
+                        </tr>
+                        <%}}%>
+                    </tbody>
+                </table>
+                
+                <table class="sortable" id="ligaR">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="font-size: 20px;"><span class="icon-trophy"></span>&nbsp;&nbsp;AMERICANA</th>
+                        </tr>
+                        <tr>
+                            <th >USUARIO</th>   <th>DIVISIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%ligasT = new Liga().mostrarTop(liga,"AMERICANA");
+                            for (Liga daniela:ligasT){%>
                         <tr>
                             <td><%=daniela.getNombreU()%></td>
                             <td><%=daniela.getRegion()%></td>    

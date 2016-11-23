@@ -21,42 +21,7 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-.jugadores{
-    padding: 10px;
-    margin: 0;
-    margin-top: 1%;
-    width: 100%;
-    position: relative;
-    background-color: #4CAF50;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    font-size: 25px;
-}
-.jugadores #selet{
-    background: #4CAF50;
-    font-family: 'Bree Serif', serif;
-    color: black;
-    width: 200px;
-    height: 40px;
-}
-.jugadores #selet optgroup{
-    font-family: 'Bree Serif', serif;
-    font-size: 20px;
-}
-.jugadores #selet optgroup option:selected{
-    font-family: 'Bree Serif', serif;
-    font-size: 20px;
-}
-.partido3{
-    padding: 10px;
-    margin: 0;
-    margin-top: 1%;
-    width: 100%;
-    position: relative;
-    background-color: rgba(0,0,0,.9);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
+
 .status{
     position: absolute;
     height:90%;

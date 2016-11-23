@@ -45,6 +45,7 @@ public class subirResultados extends HttpServlet {
             String menoreal = request.getParameter("menoreal");
             String ganadoreal = request.getParameter("ganadoreal");
             int id_partido =  Integer.parseInt(request.getParameter("id_partido"));
+            boolean pr_mar =  Boolean.parseBoolean(request.getParameter("pr_mar"));
             Partido par = new Partido();
             par = par.subirResultado(semana, local, visitante, fecha, mayoreal, menoreal, ganadoreal, id_partido);
             
@@ -54,9 +55,10 @@ public class subirResultados extends HttpServlet {
                 Usuario morena = new Usuario();
                 
                 Vector<Usuario> usuarios=new Usuario().mostrarUsuarios("1");
-                for(Usuario usu:usuarios){
+                Vector<Survival> selected;
+                /*for(Usuario usu:usuarios){
                     
-                    Vector<Survival> selected=new Survival().verSurvival(usu.getApodo()); 
+                    selected=new Survival().verSurvival(usu.getApodo()); 
                     for(Survival s:selected){
                         if(semana == s.getSemana()){
                             if(visitante == s.getId_equipo()){
@@ -79,28 +81,16 @@ public class subirResultados extends HttpServlet {
                                     wuera.actualizar(usu.getId(), semana, false);
                                 }
                             }
-                            else{
-                                /*morena.survi(usu.getId(), false);
-                                wuera.actualizar(usu.getId(), semana, false);*/
+                            else if(s.getId_equipo() == 100){
+                                morena.survi(usu.getId(), false);
+                                wuera.actualizar(usu.getId(), semana, false);
                             }
                         }
                     }
-                }
+                }*/
                 Quinela wuiris = new Quinela();
-                for(Usuario usu:usuarios){
-                    Vector <Quinela> q =new Quinela().mostrarPronosticos(usu.getId(),semana);
-                    for(Quinela qui:q){
-                        if(qui.getId_visitante() == visitante || qui.getId_local() == local){
-                            if(qui.getGanador() == Integer.parseInt(ganadoreal)){
-                                wuiris.guardarAcierto(true, usu.getId(), id_partido);
-                            }
-                            else{
-                                wuiris.guardarAcierto(false, usu.getId(), id_partido);
-                            }
-                        }
-                    }
-                }
-                response.sendRedirect("paginasA/resultadosP.jsp");
+                wuiris.guardarAcierto(pr_mar, mayoreal, menoreal, id_partido, semana, Integer.parseInt(ganadoreal));
+                response.sendRedirect("paginasA/resultadosP.jsp?sem="+semana);
             }else{
                 response.sendRedirect("error.jsp");
             }

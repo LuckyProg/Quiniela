@@ -120,7 +120,7 @@ if(sesion.getAttribute("usuario") == null){
                                 <form method="Post" action="../modificarUsuario"> 
                                 <td><input type="text" name="nombre" onkeypress="return soloLetras(event)" value='<%=usu.getNombre()%>'></td>
                                 <td><input type="text" name="apodo" onkeypress="return soloLetras(event)" value='<%=usu.getApodo()%>'></td>
-                                <td><input type="text" name="pass" onkeypress="return soloLetras(event)" value='<%=usu.getPass()%>'></td>
+                                <td><input type="password" name="pass" onkeypress="return soloLetras(event)" value='<%=usu.getPass()%>'></td>
                                 <td><input type="text" name="correo" onkeypress="return soloLetras(event)" value='<%=usu.getCorreo()%>'></td>
                                 <td><input type="text" name="monto" onkeypress="return soloNum(event)" value='<%=usu.getMonto()%>'></td>
                                 <td><input type="text" name="rol" onkeypress="return soloNum(event)" value='<%=usu.getRol()%>'></td>                                 

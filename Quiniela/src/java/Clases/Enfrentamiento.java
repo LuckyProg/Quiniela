@@ -78,6 +78,43 @@ public class Enfrentamiento {
         return enfrentamientos;
         
     }
+    public int idEnfrentamientos(int semana, int id){
+        
+        
+        Connection cn=null;
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        
+            int ide = 0;
+        
+        try{
+            cn=Conexion.getConexion();
+            String sql="select * from enfrentamiento where semana = ? and (visitante = ? or local = ?);";
+            pr=cn.prepareStatement(sql);
+            pr.setInt(1, semana);
+            pr.setInt(2, id);
+            pr.setInt(3, id);
+            rs=pr.executeQuery();
+            while(rs.next()){
+                Enfrentamiento enfr=new Enfrentamiento();
+                ide = rs.getInt("id_enfrentamiento");
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                cn.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        
+        
+        return ide;
+        
+    }
 
     public void CrearEnfrentamientos(){
        

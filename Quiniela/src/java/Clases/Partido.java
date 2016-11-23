@@ -178,6 +178,8 @@ public class Partido {
             ps.setInt(8, id_partido);
              
             ps.executeUpdate();
+            
+            
 
         }catch(Exception e){
             e.printStackTrace();

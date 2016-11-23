@@ -43,12 +43,13 @@ HttpSession sesion = request.getSession();
 user = request.getParameter("user");
 pass = request.getParameter("pass");
 Vector<Usuario> usuarios=new Usuario().mostrarUsuarios("1");
+String nombre = " ";
 for(Usuario usu:usuarios){   
     if(user.equals(usu.getApodo())&&pass.equals(usu.getPass())){
         ses=true;
         id_rol=usu.getRol();
         id_usuario=usu.getId();
-        
+        nombre = usu.getNombre();
         if(id_rol==1){admin=true;}
     }
 }
@@ -57,7 +58,7 @@ if(ses==true && sesion.getAttribute("usuario") == null && admin == false){
     sesion.setAttribute("usuario", user);
     sesion.setAttribute("rol", id_rol);
     sesion.setAttribute("id_usuario", id_usuario);
-    
+    sesion.setAttribute("nombre", nombre);
     //redirijo a página con información de login exitoso
     response.sendRedirect("paginasU/inicio.jsp");
 }else if(ses==true && sesion.getAttribute("usuario") == null && admin == true){
