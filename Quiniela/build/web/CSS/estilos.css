@@ -1,0 +1,198 @@
+/*Hola desde David*/
+/*Hola desde Servilleta*/
+*{
+			padding:0;
+			margin:0;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+        }
+        header{
+			background: transparent;
+			color: #fff;
+			padding: 0px;
+                        margin: 25px;
+			font-family: 'Bree Serif', serif;
+			font-size: 12.5px; 
+        }
+        
+        body{
+			background: url(../IMG/bg.jpg);
+			background-repeat: no-repeat;
+			background-position: center 100%;
+			background-size: cover;
+			background-attachment: fixed;
+        }
+        #logo{
+            height:50px;
+            width:auto;
+            margin-bottom: -20px;
+        }
+	h2{
+		    font-family: 'Bree Serif', serif;
+                    color:#f0f0f0;
+			font-size: 30px;
+        }
+        input{
+		    width: 250px;
+			font-size: 20px;
+			padding: 5px;
+        }
+        select{
+            width: 250px;
+            font-family: 'Bree Serif', serif;
+            font-size: 20px;
+            padding: 5px;
+            background: transparent;
+            color: #fff;
+        }
+        option:selected{
+            color:#fff;
+        }
+        option:not(:checked) { 
+            background-color: transparent; 
+            color:#000;
+        }
+        .mine{
+                    display: block;
+                    border-radius: 10px;
+                    color: #0f0f0f;
+                    background: rgba(10,10,10,.5);
+                    width: 420px;
+                    height: 400px;
+                    margin: 10px;
+                    padding-top: 45px;
+                    margin-top: 90px;
+                    font-family: 'Bree Serif', serif;
+                    font-size: 25px;
+        }
+        form{
+                    position: relative; 
+                    width: 70%;
+                    height: 80%;
+                    font-family: 'Bree Serif', serif;
+        } 
+        form input{
+            background: transparent;
+            border: 0px;
+            border-bottom: .5px #fff solid;
+            color: #fff;
+            font-family: 'Bree Serif', serif;
+        }
+        form span{
+            color: rgba(255,255,255,.5);
+            background-color: transparent;
+        }
+        a{
+            position:relative;
+            top:10px;
+            left: -60px;
+            font-family: 'Bree Serif', serif;
+            font-size: 18px;
+            color: #fff;
+        }
+        #login{
+            background: rgb(30,100,30);
+            border-radius: 10px;
+            transition-duration: .3s;
+        }
+        #login:hover{
+            background:rgb(30,120,30);
+            border-radius: 5px;
+        }
+        @media screen and (max-device-width: 768px) {
+            
+            *{
+			padding:0;
+			margin:0;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+        }
+        header{
+			background: transparent;
+			color: #fff;
+			padding: 0px;
+                        margin: 25px;
+			font-family: 'Bree Serif', serif;
+			font-size: 12.5px; 
+        }
+        
+        body{
+			background: url(../IMG/bg.jpg);
+			background-repeat: no-repeat;
+			background-position: center 100%;
+			background-size: cover;
+			background-attachment: fixed;
+        }
+        #logo{
+            height:50px;
+            width:auto;
+            margin-bottom: -20px;
+        }
+	h2{
+		    font-family: 'Bree Serif', serif;
+                    color:#f0f0f0;
+			font-size: 30px;
+        }
+        input{
+		    width: 250px;
+			font-size: 20px;
+			padding: 5px;
+        }
+        select{
+            width: 250px;
+            font-family: 'Bree Serif', serif;
+            font-size: 20px;
+            padding: 5px;
+        }
+        div{
+                    display: block;
+                    border-radius: 10px;
+                    color: #0f0f0f;
+                    background: rgba(10,10,10,.5);
+                    width: 100%;
+                    height: 400px;
+                    margin: 10px;
+                    padding-top: 45px;
+                    margin-top: 50%;
+                    font-family: 'Bree Serif', serif;
+                    font-size: 25px;
+        }
+        form{
+                    position: relative; 
+                    width: 70%;
+                    height: 80%;
+                    font-family: 'Bree Serif', serif;
+        } 
+        form input{
+            background: transparent;
+            border: 0px;
+            border-bottom: .5px #fff solid;
+            color: #fff;
+            font-family: 'Bree Serif', serif;
+        }
+        form span{
+            color: rgba(255,255,255,.5);
+            background-color: transparent;
+        }
+        a{
+            position:relative;
+            top:10px;
+            left: -60px;
+            font-family: 'Bree Serif', serif;
+            font-size: 18px;
+            color: #fff;
+        }
+        #login{
+            background: rgb(30,100,30);
+            border-radius: 10px;
+            transition-duration: .3s;
+        }
+        #login:hover{
+            background:rgb(30,120,30);
+            border-radius: 5px;
+        }
+            
+        }
+        
