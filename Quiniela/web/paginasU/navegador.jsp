@@ -32,7 +32,16 @@
                     <li><a href="enfrentamientos.jsp">&nbsp;&nbsp;•&nbsp;&nbsp;Enfrentamientos</a></li>
                 </ul>
             </li>
-            <li><a href="resultados.jsp"><span class = "icon-stats-dots"></span>&nbsp;&nbsp;Resultados</a></li>
+            <li id="kk">
+                <a href="#">
+                    <span class = "icon-stats-dots"></span>&nbsp;&nbsp;Resultados
+                </a>
+                 <ul class="subsidenav">
+                    <li><a href="resultados.jsp">&nbsp;&nbsp;•&nbsp;&nbsp;Semanales</a></li>
+                    <li><a href="resultados_gen.jsp">&nbsp;&nbsp;•&nbsp;&nbsp;Generales</a></li>
+                </ul>
+            </li>
+            <li><a href="exportarA.jsp"><span class = "icon-file-excel"></span>&nbsp;&nbsp;Reportes</a></li>
             <li><a href="../cerrarSesion"><span class = "icon-undo2"></span>&nbsp;&nbsp;Salir</a></li>
         </ul>
     </body>

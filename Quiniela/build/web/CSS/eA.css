@@ -1,0 +1,107 @@
+.quinie{
+    padding: 30px;
+    position: absolute;
+    top: 5%;
+    left: 27%;
+    width: 60%;
+    height: auto;
+    background-color: rgba(0,0,0,.7);
+    border-radius: 20px 20px 20px 20px;
+}
+
+.semanal{
+    padding: 0;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+}
+.semanal ul li{
+    margin: 0;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    width: 5.5%;
+    height: 50px;
+    transition: .5s;
+    text-align: center;
+    
+}
+.semanal ul li:first-child {
+    border-radius: 30%;
+
+}
+
+.semanal ul li:last-child {
+    
+    border-radius: 30%;
+    
+}
+
+
+.semanal ul li:hover{
+    color: white;
+     background-color: rgba(0,0,0,.7);
+     cursor: pointer;
+}
+.semanal ul a{
+    text-decoration: none;
+    color: black;
+}
+#selecct{
+    color: white;
+     background-color: rgba(0,0,0,.7);
+}
+
+.jugadores form{
+    padding: 10px;
+    margin: 0;
+    margin-top: 1%;
+    width: 100%;
+    position: relative;
+    background: #1a648a;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-size: 25px;
+    color: #f0f0f0;
+}
+.jugadores form input{
+    border: 1px solid white;
+    color: #f0f0f0;
+    font-size: 18px;
+    padding: 6px;
+    background: #1a648a;
+    transition: .2s;
+}
+.jugadores form input:hover{
+    border: 1px solid white;
+    color: #f0f0f0;
+    font-size: 18px;
+    padding: 6px;
+    background: #0f0f0f;
+    border-radius: 5px;
+}
+.jugadores form select{
+    border: 1px solid white;
+    color: #f0f0f0;
+    font-size: 18px;
+    padding: 2px;
+}
+.jugadores form #selet{
+    background: #2b648a;
+    font-family: 'Bree Serif', serif;
+    color: #f0f0f0;
+    width: 200px;
+    height: 40px;
+}
+.jugadores form #selet optgroup{
+    font-family: 'Bree Serif', serif;
+    font-size: 20px;
+}
+.jugadores form #selet optgroup option:selected{
+    font-family: 'Bree Serif', serif;
+    font-size: 20px;
+}
+

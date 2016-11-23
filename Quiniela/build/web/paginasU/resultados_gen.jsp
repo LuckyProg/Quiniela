@@ -30,16 +30,8 @@ if(sesion.getAttribute("usuario") == null){
         </jsp:include>   
         
         <div id="ligas">
-            <div class="semanal">
-                <ul>
-                    <%for(int x = 1; x<18; x++){%>
-                    <a href="resultados.jsp?semana=<%=x%>"><li <%if(x==semana){%>id="selecct"<%}%>><%=x%></li></a>
-                    <%}%>
-                </ul>
-            </div>
-            <center><h1>RESULTADOS SEMANALES</h1></center>
+            <center> <h1>RESULTADOS GENERALES</h1></center>
             <table class="sortable" id="ligaL">
-
                 <thead>
                     <tr>
                         <th>USUARIO</th>     
@@ -49,7 +41,7 @@ if(sesion.getAttribute("usuario") == null){
                     </tr>
                 </thead>
                 <tbody>
-                    <%Vector<Puntaje> puntazo = new Puntaje().mostrarPuntajes(semana);
+                    <%Vector<Puntaje> puntazo = new Puntaje().mostrarPuntajesG();
                     for(Puntaje puño:puntazo){%>
                     <tr>  
                         <td><%=puño.getNombre()%></td>
@@ -63,3 +55,4 @@ if(sesion.getAttribute("usuario") == null){
         </div>
     </body>
 </html><%}%>
+

@@ -20,10 +20,105 @@ public class Puntaje {
     private int p;
     private int dl;
     private int ds;
+    private String nombre;
     
     public Puntaje(){
         
     }
+    
+    public Vector<Puntaje> mostrarPuntajes(int semana){
+        
+        Vector<Puntaje> puntajes=new Vector<Puntaje>();
+        
+        Connection cn=null;
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        
+        
+        try{
+            cn=Conexion.getConexion();
+            String sql="";
+            
+            sql="select u.nombre, p.p, p.dl, p.ds from usuario as u, puntaje as p where u.id_usuario = p.id_usuario and p.semana = ? order by p.p DESC, p.dl ASC, p.ds ASC";
+            
+            pr=cn.prepareStatement(sql);
+            pr.setInt(1, semana);
+            rs=pr.executeQuery();
+            
+            while(rs.next()){
+                Puntaje pun=new Puntaje();
+                pun.setNombre(rs.getString("nombre"));
+                pun.setP(rs.getInt("p"));
+                pun.setDl(rs.getInt("dl"));
+                pun.setDs(rs.getInt("ds"));
+                puntajes.add(pun);
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            puntajes=null;
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                cn.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        
+        
+        return puntajes;
+    } 
+    
+    public Vector<Puntaje> mostrarPuntajesG(){
+        
+        Vector<Puntaje> puntajes=new Vector<Puntaje>();
+        
+        Connection cn=null;
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        
+        
+        try{
+            cn=Conexion.getConexion();
+            String sql="";
+            
+            Vector<Usuario> usuarios=new Usuario().mostrarJugadores();
+            
+            for(Usuario u:usuarios){
+            
+                sql="select u.nombre, sum(p.p) as p, sum(p.dl) as dl, sum(p.ds) as ds from usuario as u, puntaje as p where u.id_usuario = p.id_usuario and p.id_usuario = ?";
+
+                pr=cn.prepareStatement(sql);
+                pr.setInt(1, u.getId());
+                rs=pr.executeQuery();
+
+                while(rs.next()){
+                    Puntaje pun=new Puntaje();
+                    pun.setNombre(rs.getString("nombre"));
+                    pun.setP(rs.getInt("p"));
+                    pun.setDl(rs.getInt("dl"));
+                    pun.setDs(rs.getInt("ds"));
+                    puntajes.add(pun);
+                }
+                
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            puntajes=null;
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                cn.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        
+        
+        return puntajes;
+    } 
     
     public void actualizar_dl (int id_usuario, int dl, int semana){
         
@@ -190,6 +285,7 @@ public class Puntaje {
         return ds;
         
     }
+    
 
     public int getP() {
         return p;
@@ -213,6 +309,14 @@ public class Puntaje {
 
     public void setDs(int ds) {
         this.ds = ds;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     
