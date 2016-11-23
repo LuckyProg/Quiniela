@@ -376,18 +376,23 @@ public class Quinela {
                 int dlv = 0;
                 int dsl = 0;
                 int dsv = 0;
-                int ganador = 0;
+                int no_liga = 0;
+                int ganador;
                 for(int l = 1; l<=numL; l++){
                     
                     enfrents = new Enfrentamiento().mostrarEnfrentamientos(semana, l);
                     for(Enfrentamiento E:enfrents){
-                        sql = "select l.conferencia, l.region, l.jg, l.jp, l.je, l.divi, l.afc, l.nfc, p.p, p.dl, p.ds from liga as l, usuario as u, puntaje as p "
+                        
+                        ganador = 0;
+                        
+                        sql = "select l.no_liga, l.conferencia, l.region, l.jg, l.jp, l.je, l.divi, l.afc, l.nfc, p.p, p.dl, p.ds from liga as l, usuario as u, puntaje as p "
                                 + "where l.id_usuario = u.id_usuario and p.id_usuario = u.id_usuario and p.semana = ? and u.id_usuario=?";
                         ps=cn.prepareStatement(sql);
                         ps.setInt(1, semana);
                         ps.setInt(2, E.getLid());
                         rs=ps.executeQuery();
                         while(rs.next()){
+                            no_liga = rs.getInt("no_liga");
                             confl = rs.getString("conferencia");
                             regl = rs.getString("region");
                             jgl = rs.getInt("jg");
@@ -637,7 +642,7 @@ public class Quinela {
                             else{
                                 aux2 = ganador == E.getVid() ? aux2:aux2-1;
                             }
-                            regl = aux1 + "-" + aux2;
+                            divl = aux1 + "-" + aux2;
                             aux1 = (String.valueOf((divv.substring(0, 2)).charAt(1))).equals("-") ? Integer.parseInt(divv.substring(0, 1)):Integer.parseInt(divv.substring(0, 2)); 
                             aux2 = (String.valueOf((divv.substring(divv.length()-2, divv.length())).charAt(0))).equals("-") ? Integer.parseInt(divv.substring(divv.length()-1, divv.length())):Integer.parseInt(divv.substring(divv.length()-2, divv.length())); 
                             if(E.getGanador()!=E.getLid()){
@@ -652,17 +657,18 @@ public class Quinela {
                             else{
                                 aux1 = ganador == E.getVid() ? aux1:aux1-1;
                             }
-                            regv = aux1 + "-" + aux2;
+                            divv = aux1 + "-" + aux2;
                         }
                         
-                        sql = "update enfrentamiento set ganador = ? where id_enfrentamiento = ? ;";
+                        sql = "update enfrentamiento set ganador = ? where semana = ? and visitante = ? and local = ?;";
                         ps = cn.prepareStatement(sql);
                         ps.setInt(1,ganador);
-                        ps.setInt(2,new Enfrentamiento().idEnfrentamientos(semana, E.getLid()));
-                        System.out.println(new Enfrentamiento().idEnfrentamientos(semana, E.getLid()));
+                        ps.setInt(2,semana);
+                        ps.setInt(3,E.getVid());
+                        ps.setInt(4,E.getLid());
 
                         ps.executeUpdate();
-                        sql = "update liga set jg = ?, jp = ?, je = ?, divi = ?, afc = ?, nfc = ?, pf = pf + ?, pc = pc + ? where id_usuario = ? ;";
+                        sql = "update liga set jg = ?, jp = ?, je = ?, divi = ?, afc = ?, nfc = ?, pf = pf+?, pc = pc+? where id_usuario = ? and no_liga = ? and conferencia = ? and region = ?;";
                         ps = cn.prepareStatement(sql);
                         ps.setInt(1,jgl);
                         ps.setInt(2,jpl);
@@ -685,11 +691,14 @@ public class Quinela {
                             }
                         }
                         ps.setInt(9,E.getLid());
+                        ps.setInt(10,no_liga);
+                        ps.setString(11,confl);
+                        ps.setString(12,regl);
                         
                         ps.executeUpdate();
                         
                       ps.executeUpdate();
-                        sql = "update liga set jg = ?, jp = ?, je = ?, divi = ?, afc = ?, nfc = ?, pf = pf + ?, pc = pc + ? where id_usuario = ? ;";
+                        sql = "update liga set jg = ?, jp = ?, je = ?, divi = ?, afc = ?, nfc = ?, pf = pf + ?, pc = pc + ? where id_usuario = ? and no_liga = ? and conferencia = ? and region = ?;";
                         ps = cn.prepareStatement(sql);
                         ps.setInt(1,jgv);
                         ps.setInt(2,jpv);
@@ -712,6 +721,9 @@ public class Quinela {
                             }
                         }
                         ps.setInt(9,E.getVid());
+                        ps.setInt(10,no_liga);
+                        ps.setString(11,confv);
+                        ps.setString(12,regv);
                         
                         ps.executeUpdate();
                     }
