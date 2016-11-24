@@ -7,14 +7,22 @@
         <%if(request.getParameter("nu")==null){
         
         response.sendRedirect("../index.jsp");
-        }%>
+        }else{
+            int pag = Integer.parseInt(request.getParameter("pag"));
+%>
     </head>
     <body>
         <ul class="sidenav">
-            <li id="usuu"><a href="info.jsp"><span class = "icon-user"></span>&nbsp;&nbsp;<%=request.getParameter("nu")%></a></li>
-            <li><a href="inicio.jsp"><span class = "icon-home3"></span>&nbsp;&nbsp;Inicio</a></li>
+            <li id="usuu"><a href="info.jsp" <%if(pag==0){%>class="active"<%}%>>
+                    <span class = "icon-user"></span>&nbsp;&nbsp;<%=request.getParameter("nu")%>
+                </a>
+            </li>
+            <li><a href="inicio.jsp" <%if(pag==1){%>class="active"<%}%>>
+                    <span class = "icon-home3"></span>&nbsp;&nbsp;Inicio
+                </a>
+            </li>
             <li id="kk">
-                <a href="#">
+                <a href="#" <%if(pag==2){%>class="active"<%}%>>
                     <span class = "icon-clipboard"></span>&nbsp;&nbsp;Quiniela
                 </a>
                 <ul class="subsidenav">
@@ -22,9 +30,12 @@
                     <li><a href="compararQ.jsp">&nbsp;&nbsp;•&nbsp;&nbsp;Compara tu quiniela</a></li>
                 </ul>
             </li>
-            <li><a href="survival.jsp"><span class = "icon-fire"></span>&nbsp;&nbsp;Survival</a></li>
+            <li><a href="survival.jsp" <%if(pag==3){%>class="active"<%}%>>
+                    <span class = "icon-fire"></span>&nbsp;&nbsp;Survival
+                </a>
+            </li>
             <li id="kk">
-                <a href="#"  class="active">
+                <a href="#" <%if(pag==4){%>class="active"<%}%>>
                     <span class = "icon-tree"></span>&nbsp;&nbsp;Liga
                 </a>
                 <ul class="subsidenav">
@@ -33,7 +44,7 @@
                 </ul>
             </li>
             <li id="kk">
-                <a href="#">
+                <a href="#" <%if(pag==5){%>class="active"<%}%>>
                     <span class = "icon-stats-dots"></span>&nbsp;&nbsp;Resultados
                 </a>
                  <ul class="subsidenav">
@@ -41,8 +52,11 @@
                     <li><a href="resultados_gen.jsp">&nbsp;&nbsp;•&nbsp;&nbsp;Generales</a></li>
                 </ul>
             </li>
-            <li><a href="exportarA.jsp"><span class = "icon-file-excel"></span>&nbsp;&nbsp;Reportes</a></li>
+            <li><a href="exportarA.jsp" <%if(pag==6){%>class="active"<%}%>>
+                    <span class = "icon-file-excel"></span>&nbsp;&nbsp;Reportes
+                </a>
+            </li>
             <li><a href="../cerrarSesion"><span class = "icon-undo2"></span>&nbsp;&nbsp;Salir</a></li>
         </ul>
     </body>
-</html>
+</html><%}%>

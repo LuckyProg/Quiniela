@@ -28,6 +28,7 @@ String apodo = String.valueOf(sesion.getAttribute("usuario"));
     <body id="brody" onpaste="return false;">
         <jsp:include page="navegador.jsp" flush="true">
             <jsp:param name="nu" value='<%=apodo%>'/>
+            <jsp:param name="pag" value='0'/>
         </jsp:include>   
         <br><br>
 		<br>

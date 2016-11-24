@@ -32,6 +32,7 @@ if(sesion.getAttribute("usuario") == null){
     <body id="bgsurv">
        <jsp:include page="navegador.jsp" flush="true">
             <jsp:param name="nu" value='<%=apodo%>'/>
+            <jsp:param name="pag" value='6'/>
         </jsp:include>   
         <div class="quinie"> 
         <div class="semanal">

@@ -22,6 +22,7 @@ String apodo = String.valueOf(sesion.getAttribute("usuario"));
     <body>
         <jsp:include page="navegador.jsp" flush="true">
             <jsp:param name="nu" value='<%=apodo%>'/>
+            <jsp:param name="pag" value='1'/>
         </jsp:include>   
         <div id="slideShowImages">
                  <img src="../IMG/i1.jpg" alt="Slide 1" />

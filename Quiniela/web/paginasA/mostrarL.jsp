@@ -9,6 +9,7 @@ if(sesion.getAttribute("usuario") == null){
     if(request.getParameter("liga")!=null){
         liga = Integer.parseInt(request.getParameter("liga"));
     }else {liga=1;}
+    String apodo = String.valueOf(sesion.getAttribute("usuario"));
 %>
 <!DOCTYPE html>
 <html>
@@ -26,58 +27,10 @@ if(sesion.getAttribute("usuario") == null){
         <script src="../JS/cv.js" type="text/javascript"></script>
     </head>
     <body>
-        <div id="main-right">
-            <center>
-                <section>
-                    <br>
-                    <a href="inicio_admin.jsp"><h1>ADMIN</h1></a>
-                    <br>
-                    <br>
-                    <div><h2>Usuarios</h2></div>
-                    <br>
-                        <ul>
-                            <li><a href="agregarU.jsp">• Agregar Usuario</a></li>
-                            <li><a href="modificarU.jsp">• Modificar</a></li>  
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Partidos</h2></div><br>
-                        <ul>
-                            <li><a href="agregarP.jsp">• Agregar partido</a></li>
-                            <li><a href="modificarP.jsp">• Modificar partidos</a></li>
-                            <li><a href="resultadosP.jsp">• Subir Resultados</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Quiniela</h2></div><br>
-                        <ul>
-                            <li><a href="modificarQ.jsp">• Modificar quiniela</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Liga</h2></div><br>
-                        <ul>
-                            <li><a href="mostrarL.jsp">• Ver ligas</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Survivor</h2></div><br>
-                        <ul>
-                            <li><a href="mostrarS.jsp">• Consultar Survivor</a></li>        
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Exportar</h2></div><br>
-                        <ul>
-                            <li><a href="expA.jsp">•Archivos </a></li>                                
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><a href="../cerrarSesion"><h2>Salir</h2></a></div>
-                </section>
-                <br>
-            </center>
-        </div>
+        <jsp:include page="navegadorA.jsp" flush="true">
+            <jsp:param name="nu" value='<%=apodo%>'/>
+            <jsp:param name="pag" value='3'/>
+        </jsp:include> 
         <%
             Vector<Liga> lig = new Liga().mostrarLigas(1);
             if(lig.isEmpty()){

@@ -35,6 +35,7 @@ if(sesion.getAttribute("usuario") == null){
     <body>
        <jsp:include page="navegador.jsp" flush="true">
             <jsp:param name="nu" value='<%=apodo%>'/>
+            <jsp:param name="pag" value='2'/>
         </jsp:include>   
         
             <div class="quinie">  
@@ -139,5 +140,4 @@ if(sesion.getAttribute("usuario") == null){
             </form>
             </div>
     </body>
-</html>
-<%}%>
+</html><%}%>

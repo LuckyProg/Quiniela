@@ -14,7 +14,7 @@ if(sesion.getAttribute("usuario") == null){
 
     }
     
-
+    String apodo = String.valueOf(sesion.getAttribute("usuario"));
 %>
 <html>
     <head>
@@ -32,58 +32,10 @@ if(sesion.getAttribute("usuario") == null){
         <%if(request.getParameter("cambio")!=null){%>
    <script>swal("Cambio Exitoso!", "Datos del usuario han sido modificados!", "success")</script>
     <%}%>
-         <div id="main-right">
-            <center>
-                <section>
-                    <br>
-                    <a href="inicio_admin.jsp"><h1>ADMIN</h1></a>
-                    <br>
-                    <br>
-                    <div id="usuarios"><h2>Usuarios</h2></div>
-                    <br>
-                        <ul>
-                            <li><a href="agregarU.jsp"> Agregar Usuario</a></li>
-                            <li><a href="modificarU.jsp"> Modificar</a></li>  
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div id="partidos"><h2>Partidos</h2></div><br>
-                        <ul>
-                            <li><a href="agregarP.jsp"> Agregar partido</a></li>
-                            <li><a href="modificarP.jsp"> Modificar partidos</a></li>
-                            <li><a href="resultadosP.jsp"> Subir Resultados</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div id="quiniela"><h2>Quiniela</h2></div><br>
-                        <ul>
-                            <li><a href="modificarQ.jsp"> Modificar quiniela</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div id="liga"><h2>Liga</h2></div><br>
-                        <ul>
-                            <li><a href="mostrarL.jsp"> Ver ligas</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div id="survivor"><h2>Survivor</h2></div><br>
-                        <ul>
-                            <li><a href="mostrarS.jsp"> Consultar Survivor</a></li>        
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div id="exportar"><h2>Exportar</h2></div><br>
-                        <ul>
-                            <li><a href="expA.jsp"> Archivos </a></li>                                
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div id="salir"><a href="../cerrarSesion"><h2>Salir</h2></a></div>
-                </section>
-                <br>
-            </center>
-        </div>
+         <jsp:include page="navegadorA.jsp" flush="true">
+            <jsp:param name="nu" value='<%=apodo%>'/>
+            <jsp:param name="pag" value='1'/>
+        </jsp:include> 
         <div id="in">
             <center>
                 

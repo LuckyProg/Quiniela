@@ -55,9 +55,9 @@
         }
         .mine{
                     display: block;
-                    border-radius: 30px;
+                    border-radius: 10px;
                     color: #0f0f0f;
-                    background: rgba(10,10,10,.96);
+                    background: rgba(10,10,10,.95);
                     width: 420px;
                     height: 400px;
                     margin: 10px;
@@ -195,4 +195,5 @@
         }
             
         }
+        
         

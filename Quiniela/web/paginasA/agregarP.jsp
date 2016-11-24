@@ -4,7 +4,8 @@
 <%HttpSession sesion = request.getSession();
 if(sesion.getAttribute("usuario") == null){
     response.sendRedirect("../index.jsp");
-}else if(sesion.getAttribute("rol").equals(1)){%>
+}else if(sesion.getAttribute("rol").equals(1)){
+String apodo = String.valueOf(sesion.getAttribute("usuario"));%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,58 +17,10 @@ if(sesion.getAttribute("usuario") == null){
        
     </head>
     <body onpaste="return false;">
-        <div id="main-right">
-            <center>
-                <section>
-                    <br>
-                    <a href="inicio_admin.jsp"><h1>ADMIN</h1></a>
-                    <br>
-                    <br>
-                    <div><h2>Usuarios</h2></div>
-                    <br>
-                        <ul>
-                            <li><a href="agregarU.jsp">• Agregar Usuario</a></li>
-                            <li><a href="modificarU.jsp">• Modificar</a></li>  
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Partidos</h2></div><br>
-                        <ul>
-                            <li><a href="agregarP.jsp">• Agregar partido</a></li>
-                            <li><a href="modificarP.jsp">• Modificar partidos</a></li>
-                            <li><a href="resultadosP.jsp">• Subir Resultados</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Quiniela</h2></div><br>
-                        <ul>
-                            <li><a href="modificarQ.jsp">• Modificar quiniela</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Liga</h2></div><br>
-                        <ul>
-                            <li><a href="mostrarL.jsp">• Ver ligas</a></li>
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Survivor</h2></div><br>
-                        <ul>
-                            <li><a href="mostrarS.jsp">• Consultar Survivor</a></li>        
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><h2>Exportar</h2></div><br>
-                        <ul>
-                            <li><a href="expA.jsp">•Archivos </a></li>                                
-                        </ul>
-                </section>
-                <section>
-                        <br><br><div><a href="../cerrarSesion"><h2>Salir</h2></a></div>
-                </section>
-                <br>
-            </center>
-        </div>
+        <jsp:include page="navegadorA.jsp" flush="true">
+            <jsp:param name="nu" value='<%=apodo%>'/>
+            <jsp:param name="pag" value='2'/>
+        </jsp:include> 
         <div id="in"><center><h1>AGREGAR PARTIDO</h1><br><br>
        
         <form method="post" action="../agregarPartido">
