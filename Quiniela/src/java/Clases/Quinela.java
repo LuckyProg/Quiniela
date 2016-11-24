@@ -163,6 +163,7 @@ public class Quinela {
             ps.setInt(1, ganador);
             ps.setInt(2, mayor);
             ps.setInt(3, menor);
+            System.out.println(no_marcador);
             ps.setInt(4, no_marcador);
             ps.setInt(5, id_partido);
             ps.setInt(6, id_usuario);
@@ -186,7 +187,7 @@ public class Quinela {
     
     }
 
-    public Quinela crearPronostico(int id_usuario, int id_partido, boolean primer_marcador){
+    public Quinela crearPronostico(int id_usuario){
         
         Quinela qui = null;
         Connection cn=null;
@@ -197,18 +198,73 @@ public class Quinela {
             
             qui= new Quinela();
             cn = Conexion.getConexion();
-            String sql = "INSERT INTO pronostico (id_usuario, id_partido, no_marcador) VALUES(?,?,?)";
-            ps = cn.prepareStatement(sql); 
+            Vector<Partido> partidos;
+            for(int i=1; i<=17; i++){
+                partidos = new Partido().mostrarPartidos(String.valueOf(i));
+                for(Partido par:partidos){
+                    String sql = "INSERT INTO pronostico (id_usuario, id_partido, no_marcador) VALUES(?,?,?)";
+                    ps = cn.prepareStatement(sql); 
+                    ps.setInt(1, id_usuario);
+                    ps.setInt(2, par.getId_partido());
+                    if(par.isPr_mar()==true){
+                        ps.setInt(3, 1);
+                    }
+                    else{
+                        ps.setInt(3, 0); 
+                    }
+                    ps.executeUpdate();
+                }
+            }
             
-            ps.setInt(1, id_usuario);
-            ps.setInt(2, id_partido);
-            if(primer_marcador==true){
-                ps.setInt(3, 1);
+       
+
+        }catch(Exception e){
+            e.printStackTrace();
+            qui = null;
+        }finally{
+            try{
+                //rs.close();
+                ps.close();
+            }catch(SQLException ex){
+                qui = null;
+                ex.printStackTrace();
             }
-            else{
-                ps.setInt(3, 0); 
-            }
-            ps.executeUpdate();
+        }
+        
+        
+        
+        return qui;
+    }
+    
+     public Quinela crearPronostico2(int id_partido, boolean primer_marcador){
+        
+        Quinela qui = null;
+        Connection cn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        
+        try{
+            
+            qui= new Quinela();
+            cn = Conexion.getConexion();
+            Vector<Usuario> usuarios;
+            
+                usuarios = new Usuario().mostrarJugadores();
+                for(Usuario par:usuarios){
+                    String sql = "INSERT INTO pronostico (id_usuario, id_partido, no_marcador) VALUES(?,?,?)";
+                    ps = cn.prepareStatement(sql); 
+                    ps.setInt(1, par.getId());
+                    ps.setInt(2, id_partido);
+                    if(primer_marcador==true){
+                        ps.setInt(3, 1);
+                    }
+                    else{
+                        ps.setInt(3, 0); 
+                    }
+                    ps.executeUpdate();
+                }
+            
+            
        
 
         }catch(Exception e){

@@ -25,8 +25,6 @@ String apodo = String.valueOf(sesion.getAttribute("usuario"));
         </jsp:include>   
         <div id="slideShowImages">
                  <img src="../IMG/i1.jpg" alt="Slide 1" />
-                 <img src="../IMG/i2.jpg" alt="Slide 2" />
-                 <img src="../IMG/i4.jpg" alt="Slide 3" />
                  <img src="../IMG/i3.jpg" alt="Slide 3" />
         </div>
     </body>      

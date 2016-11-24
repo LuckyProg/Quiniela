@@ -41,13 +41,10 @@ public class agregarPartido extends HttpServlet {
                 for(Partido par:partidos){
                     id_par = par.getId_partido();
                 }
-                Vector<Usuario> usuarios=new Usuario().mostrarUsuarios("1");
-                Quinela qui = new Quinela();
-                for(Usuario usu:usuarios){
-                    if(usu.getRol() != 1){
-                        qui.crearPronostico(usu.getId(), id_par, primer_marcador);
-                    }
-                }
+                
+                Quinela qui = new Quinela();     
+                qui.crearPronostico2(id_par, primer_marcador);
+
                 response.sendRedirect("paginasA/agregarP.jsp");
             }else{
              response.sendRedirect("error.jsp");

@@ -48,7 +48,7 @@ public class guardarQuiniela extends HttpServlet {
         int no_marcador = 0;
         Quinela qui = new Quinela();
         for(int i = 1; i<=Integer.parseInt(request.getParameter("numpar"));i++){
-            
+            no_marcador = 0;
            try {
                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
                Date servidor = sdf.parse(qui.obtenerFecha());
@@ -70,13 +70,14 @@ public class guardarQuiniela extends HttpServlet {
                             if(sm == i){
                                 no_marcador = 2;
                             }
-                            if(request.getParameter("Pm")!=null){
+                            if(request.getParameter("Pm"+i)!=null){
                                 no_marcador = 1;
                             }
+                                
                             id_partido = Integer.parseInt(request.getParameter("id_partido"+String.valueOf(i)));
                             
                             qui.guardarPronostico(ganador, mayor, menor, id_partido, id_usuario, no_marcador);
-                   
+                            
                }
                
                no_marcador = 0;

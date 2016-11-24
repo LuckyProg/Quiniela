@@ -42,12 +42,8 @@ public class registrarUsuario extends HttpServlet {
             }
             Quinela wuera = new Quinela();
             Vector<Partido> partidos;
-            for(int i=1; i<=17; i++){
-                partidos = new Partido().mostrarPartidos(String.valueOf(i));
-                for(Partido par:partidos){
-                    wuera.crearPronostico(id_usuario, par.getId_partido(), par.isPr_mar());
-                }
-            }
+            wuera.crearPronostico(id_usuario);
+                
             response.sendRedirect("paginasA/agregarU.jsp?nombre="+nombre+"&pass="+pass+"");
          }else{
              response.sendRedirect("error.jsp");

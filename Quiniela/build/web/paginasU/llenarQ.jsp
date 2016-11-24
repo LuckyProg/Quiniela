@@ -50,10 +50,12 @@ if(sesion.getAttribute("usuario") == null){
                 <%
                     Quinela wuera = new Quinela();
                     int cont=0;
+                    int noM = 0;
                     boolean pasa = false;
                     Vector <Quinela> q =new Quinela().mostrarPronosticos(id_usuario,semana);
                     for(Quinela qui:q){
                     cont++;
+                    noM = 0;
                     String idvisitante = "e"+qui.getId_visitante();
                     String idlocal = "e"+qui.getId_local();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
@@ -106,7 +108,7 @@ if(sesion.getAttribute("usuario") == null){
                     </div>
                     <div class="marcadores"> 
                         <%
-                            int noM = qui.getNo_marcador();
+                            noM = qui.getNo_marcador();
                             int M = qui.getMayor();
                             int m = qui.getMenor();
                         %>
@@ -115,7 +117,7 @@ if(sesion.getAttribute("usuario") == null){
                         <br>
                         <p>Mayor: <input type="number" name="mayor<%=cont%>" value="<%=M%>"></p>
                         <p>Menor: <input type="number" name="menor<%=cont%>" value="<%=m%>"></p>
-                        <input type="hidden" name="Pm" value="1">
+                        <input type="hidden" name="Pm<%=cont%>" value="1">
                         <%}else{%>
                         <p>Segundo marcador: <input type="radio" name="Sm" id="S<%=cont%>" value="<%=cont%>" onchange="mostrarMarcador('<%=cont%>')" <%if(noM==2){%>checked<%}%>></p>
                         <br>
