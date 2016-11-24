@@ -57,7 +57,7 @@
                     <span class = "icon-fire"></span>&nbsp;&nbsp;Consultar Survival
                 </a>
             </li>
-            <li><a href="expA.jsp" <%if(pag==5){%>class="active"<%}%>>
+            <li><a href="expA.jsp" <%if(pag==6){%>class="active"<%}%>>
                     <span class = "icon-file-excel"></span>&nbsp;&nbsp;Exportar Archivos
                 </a>
             </li>

@@ -29,7 +29,7 @@ if(sesion.getAttribute("usuario") == null){
     <body>
          <jsp:include page="navegadorA.jsp" flush="true">
             <jsp:param name="nu" value='<%=apodo%>'/>
-            <jsp:param name="pag" value='4'/>
+            <jsp:param name="pag" value='5'/>
         </jsp:include> 
         
         <div class="divid"  >
