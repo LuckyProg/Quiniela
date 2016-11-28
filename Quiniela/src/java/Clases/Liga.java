@@ -77,7 +77,7 @@ public class Liga {
         return ligas;
     }
     
-    public Vector<Liga> mostrarTop(int liga,String conferencia){
+    public Vector<Liga> mostrarTop(int liga,String conferencia, int top){
         
         Vector<Liga> ligas=new Vector<Liga>();
         
@@ -88,15 +88,23 @@ public class Liga {
         
         try{
             cn=Conexion.getConexion();
-            String sql="select usuario.nombre as nombreU, region from liga, usuario where liga.id_usuario=usuario.id_usuario and no_liga = ? and conferencia = ? order by jg desc, jp asc LIMIT 6";
+            String sql="select usuario.nombre as nombreU, usuario.id_usuario, l.region, l.jg, l.jp, l.je, l.divi, l.afc, l.nfc from liga as l, usuario"
+                    + " where l.id_usuario=usuario.id_usuario and l.no_liga = ? and l.conferencia = ? order by l.jg desc, l.jp asc LIMIT "+top;
             pr=cn.prepareStatement(sql);
             pr.setInt(1, liga);
             pr.setString(2, conferencia);
             rs=pr.executeQuery();
             while(rs.next()){
                 Liga li=new Liga();
+                li.setId_usuario(rs.getInt("id_usuario"));
                 li.setNombreU(rs.getString("nombreU"));
                 li.setRegion(rs.getString("region")); 
+                li.setJg(rs.getInt("jg"));
+                li.setJp(rs.getInt("jp"));
+                li.setJe(rs.getInt("je"));
+                li.setDivi(rs.getString("divi"));
+                li.setAfc(rs.getString("afc"));
+                li.setNfc(rs.getString("nfc"));
                 ligas.add(li);
             }
         }catch(SQLException ex){
@@ -115,6 +123,8 @@ public class Liga {
         
         return ligas;
     }
+    
+    
     
     public int numL(){
         
@@ -257,6 +267,9 @@ public class Liga {
             
             cn = Conexion.getConexion();
             String sql = "truncate table liga";
+            ps = cn.prepareStatement(sql);     
+            ps.executeUpdate();
+            sql = "truncate table enfrentamiento";
             ps = cn.prepareStatement(sql);     
             ps.executeUpdate();
 

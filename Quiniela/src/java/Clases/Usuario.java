@@ -273,12 +273,13 @@ public class Usuario {
         
         try{
             cn=Conexion.getConexion();
-            String sql="select id_usuario from usuario where rol =2";
+            String sql="select id_usuario, nombre from usuario where rol =2";
             pr=cn.prepareStatement(sql);
             rs=pr.executeQuery();
             while(rs.next()){
                 Usuario usu=new Usuario();
                 usu.setId(rs.getInt("id_usuario"));
+                usu.setNombre(rs.getString("nombre"));
                 usuarios.add(usu);
             }
         }catch(SQLException ex){

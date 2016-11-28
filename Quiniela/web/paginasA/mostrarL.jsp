@@ -50,7 +50,7 @@ if(sesion.getAttribute("usuario") == null){
             <%}else{
             
             
-            Vector<Liga> ligasT = new Liga().mostrarTop(liga,"AMERICANA");%>
+            Vector<Liga> ligasT = new Liga().mostrarTop(liga,"AMERICANA", 6);%>
             
             <div id="seleccionar_liga" style="position: absolute;top:0;right: 5%;background: transparent;">
                 <ul>
@@ -142,7 +142,7 @@ if(sesion.getAttribute("usuario") == null){
                         </tr>
                     </thead>
                     <tbody>
-                        <%ligasT = new Liga().mostrarTop(liga,"NACIONAL");
+                        <%ligasT = new Liga().mostrarTop(liga,"NACIONAL", 6);
                         
                        for (Liga daniela:ligasT){%>
                         <tr>

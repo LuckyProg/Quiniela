@@ -441,6 +441,10 @@ public class Quinela {
                         
                         ganador = 0;
                         
+                        if(E.getLid()==E.getVid()){
+                            ganador = E.getLid();
+                        }
+                        
                         sql = "select l.no_liga, l.conferencia, l.region, l.jg, l.jp, l.je, l.divi, l.afc, l.nfc, p.p, p.dl, p.ds from liga as l, usuario as u, puntaje as p "
                                 + "where l.id_usuario = u.id_usuario and p.id_usuario = u.id_usuario and p.semana = ? and u.id_usuario=?";
                         ps=cn.prepareStatement(sql);

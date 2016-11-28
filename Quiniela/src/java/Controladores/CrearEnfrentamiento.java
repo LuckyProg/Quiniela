@@ -6,13 +6,8 @@
 package Controladores;
 
 import Clases.Enfrentamiento;
-import Clases.Partido;
-import Clases.Quinela;
-import Clases.Survival;
-import Clases.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author derda
  */
-public class subirResultados extends HttpServlet {
+public class CrearEnfrentamiento extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,49 +30,20 @@ public class subirResultados extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
-            int semana =  Integer.parseInt(request.getParameter("semana"));
-            int local =  Integer.parseInt(request.getParameter("local"));
-            int visitante =  Integer.parseInt(request.getParameter("visitante"));
-            String fecha =  request.getParameter("fecha");
-            String mayoreal = request.getParameter("mayoreal");
-            String menoreal = request.getParameter("menoreal");
-            String ganadoreal = request.getParameter("ganadoreal");
-            int id_partido =  Integer.parseInt(request.getParameter("id_partido"));
-            boolean pr_mar =  Boolean.parseBoolean(request.getParameter("pr_mar"));
-            Partido par = new Partido();
-            par = par.subirResultado(semana, local, visitante, fecha, mayoreal, menoreal, ganadoreal, id_partido);
-            
-            if(par!=null){
-                
-                Survival wuera = new Survival();
-                Usuario morena = new Usuario();
-                
-                Vector<Usuario> usuarios=new Usuario().mostrarUsuarios("1");
-                Vector<Survival> selected;
-                Quinela wuiris = new Quinela();
-                wuiris.guardarAcierto(pr_mar, mayoreal, menoreal, id_partido, semana, Integer.parseInt(ganadoreal));
-                
-                Enfrentamiento e = new Enfrentamiento();
-                if(semana==14 && pr_mar==true){
-                    System.out.println("bien");
-                    e.crearS15();
-                }
-                if(semana==15 && pr_mar==true){
-                    e.crearS16();
-                }
-                if(semana==16 && pr_mar==true){
-                    e.crearS17();
-                }
-                
-                response.sendRedirect("paginasA/resultadosP.jsp?sem="+semana);
-            }else{
-                response.sendRedirect("error.jsp");
-            }
-            
-        }
+        
+        String conf = request.getParameter("conf");
+        int liga = Integer.parseInt(request.getParameter("liga"));
+        Enfrentamiento e = new Enfrentamiento();
+        int id1, id2, id3, id4, id5, id6;
+        id1 = Integer.parseInt(request.getParameter("id1"));
+        id2 = Integer.parseInt(request.getParameter("id2"));
+        id3 = Integer.parseInt(request.getParameter("id3"));
+        id4 = Integer.parseInt(request.getParameter("id4"));
+        id5 = Integer.parseInt(request.getParameter("id5"));
+        id6 = Integer.parseInt(request.getParameter("id6"));
+        e.crearS14(id1, id2, id3, id4, id5, id6, liga);
+        
+        response.sendRedirect("paginasA/enfrenL.jsp?liga="+liga+"&conf="+conf);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

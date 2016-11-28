@@ -63,8 +63,6 @@ if(sesion.getAttribute("usuario") == null){
                    boolean diesciseis = sem16.size()==2 ? true:false;
                    Vector<Enfrentamiento> sem17 = new Enfrentamiento().mostrarEnfrentamientos(17, liga);
                    boolean diescisiete = sem17.size()==1 ? true:false;
-                   
-                   
                %>
                     <table>
                         <tr>
@@ -159,7 +157,7 @@ if(sesion.getAttribute("usuario") == null){
                         </tr>
                         
                         <tr>
-                            <%if(catorce){%><td class="jugador"><%=sem14.get(2).getVisitante()%></td>  <td><div class="punt">P:<%=sem14.get(2).getVp()%><br>DL:<%=sem14.get(2).getVdl()%><br>DS:<%=sem14.get(2).getVds()%></div></td>  <td></td>   <td class="izquierda"></td>  <%}else{%><td class="jugador"></td>  <td></td>  <td></td>   <td class="izquierda"></td>   <td></td>   <%}%>
+                            <%if(catorce){%><td class="jugador"><%=sem14.get(6).getVisitante()%></td>  <td><div class="punt">P:<%=sem14.get(6).getVp()%><br>DL:<%=sem14.get(6).getVdl()%><br>DS:<%=sem14.get(6).getVds()%></div></td>  <td></td>   <td class="izquierda"></td>  <%}else{%><td class="jugador"></td>  <td></td>  <td></td>   <td class="izquierda"></td>   <td></td>   <%}%>
                         </tr>
                         
                         <tr>
@@ -171,11 +169,11 @@ if(sesion.getAttribute("usuario") == null){
                         </tr>
                         
                         <tr>
-                            <%if(catorce){%><td class="jugador"><%=sem14.get(3).getVisitante()%></td>   <td><div class="punt">P:<%=sem14.get(3).getVp()%><br>DL:<%=sem14.get(3).getVdl()%><br>DS:<%=sem14.get(3).getVds()%></div></td><%}else{%><td class="jugador"></td>   <td></td>   <td></td>   <td></td>   <td></td>   <%}%>
+                            <%if(catorce){%><td class="jugador"><%=sem14.get(7).getVisitante()%></td>   <td><div class="punt">P:<%=sem14.get(7).getVp()%><br>DL:<%=sem14.get(3).getVdl()%><br>DS:<%=sem14.get(3).getVds()%></div></td><%}else{%><td class="jugador"></td>   <td></td>   <td></td>   <td></td>   <td></td>   <%}%>
                         </tr>
                         
                         <tr>
-                            <%if(catorce){%><td class="jugador"><%=sem14.get(3).getLocal()%></td>   <td><div class="punt">P:<%=sem14.get(3).getLp()%><br>DL:<%=sem14.get(3).getLdl()%><br>DS:<%=sem14.get(3).getLds()%></div></td>   <%}else{%><td class="jugador"></td>   <td></td>   <td></td>   <td></td>   <td></td>   <%}%>
+                            <%if(catorce){%><td class="jugador"><%=sem14.get(7).getLocal()%></td>   <td><div class="punt">P:<%=sem14.get(7).getLp()%><br>DL:<%=sem14.get(7).getLdl()%><br>DS:<%=sem14.get(7).getLds()%></div></td>   <%}else{%><td class="jugador"></td>   <td></td>   <td></td>   <td></td>   <td></td>   <%}%>
                         </tr>
                         
                         

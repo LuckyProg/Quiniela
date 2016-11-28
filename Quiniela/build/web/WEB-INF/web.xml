@@ -68,6 +68,10 @@
         <servlet-name>generarArchivo</servlet-name>
         <servlet-class>Controladores.generarArchivo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CrearEnfrentamiento</servlet-name>
+        <servlet-class>Controladores.CrearEnfrentamiento</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>registrarUsuario</servlet-name>
         <url-pattern>/registrarUsuario</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>generarArchivo</servlet-name>
         <url-pattern>/generarArchivo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrearEnfrentamiento</servlet-name>
+        <url-pattern>/CrearEnfrentamiento</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

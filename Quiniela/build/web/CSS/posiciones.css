@@ -9,10 +9,6 @@
     margin-top: 0;
     width: 80%;
     float: right;
-    
-    
- 
-  
 }
 #seleccionar_liga ul{
     position: relative;
@@ -51,6 +47,52 @@
     
 }
 #seleccionar_liga ul li:hover{
+    background: rgba(76,175,80,.88);
+}
+
+#seleccionar_conf{
+    height: auto;
+    min-height: 70px;
+    position: relative;
+    margin-top: 5%;
+    width: 80%;
+    float: right;
+}
+#seleccionar_conf ul{
+    position: relative;
+    width: 100%;
+    margin-left: 10%;
+ 
+}
+#seleccionar_conf ul a li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float:left;
+    height: 70px;
+    background: rgba(76,175,80,.37);
+    border: 1.5px solid black;
+    transition: .3s;
+    vertical-align: middle;
+    text-align: center;
+    
+}
+#seleccionar_conf ul a li{
+    
+    padding-top: 20px;
+}
+
+#seleccionar_conf ul a{
+    position: relative;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    height: 100%;
+    vertical-align:-17px;
+    margin: 0;
+    
+}
+#seleccionar_conf ul li:hover{
     background: rgba(76,175,80,.88);
 }
 #ligas{

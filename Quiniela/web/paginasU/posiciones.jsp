@@ -37,7 +37,7 @@ if(sesion.getAttribute("usuario") == null){
              %>
              <div id="noL">LIGAS NO DISPONIBLES</div>
             <%}else{
-            Vector<Liga> ligasT = new Liga().mostrarTop(liga,"AMERICANA");%>
+            Vector<Liga> ligasT = new Liga().mostrarTop(liga,"AMERICANA", 6);%>
             
             <div id="seleccionar_liga" style="">
                 <ul>
@@ -297,7 +297,7 @@ if(sesion.getAttribute("usuario") == null){
                         </tr>
                     </thead>
                     <tbody>
-                        <%ligasT = new Liga().mostrarTop(liga,"AMERICANA");
+                        <%ligasT = new Liga().mostrarTop(liga,"AMERICANA", 6);
                             for (Liga daniela:ligasT){%>
                         <tr>
                             <td><%=daniela.getNombreU()%></td>
@@ -317,7 +317,7 @@ if(sesion.getAttribute("usuario") == null){
                         </tr>
                     </thead>
                     <tbody>
-                        <%ligasT = new Liga().mostrarTop(liga,"NACIONAL");
+                        <%ligasT = new Liga().mostrarTop(liga,"NACIONAL", 6);
                         
                        for (Liga daniela:ligasT){%>
                         <tr>

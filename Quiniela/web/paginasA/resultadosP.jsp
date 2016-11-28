@@ -36,7 +36,11 @@ if(sesion.getAttribute("usuario") == null){
                 
                 <h1>Resultados</h1><br>
                 <form method="Post" action="resultadosP.jsp">
-                    Semana: <input type="number" name="sem" >
+                    Semana: <select name="sem">
+                    <%for(int i = 1; i<=17; i++){%>
+                    <option value="<%=i%>" <%if(Integer.parseInt(sem)==i){%>selected<%}%>><%=i%></option>
+                    <%}%>
+                    </select>
                     <input type="submit" value="Buscar">
                 </form> 
                 <br>

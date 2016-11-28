@@ -40,7 +40,6 @@ public class Enfrentamiento {
         
         try{
             cn=Conexion.getConexion();
-           
             String sql="SELECT * FROM enfrenL where semana = ?  and liga = ?";
             pr=cn.prepareStatement(sql);
             pr.setInt(1, semana);
@@ -78,6 +77,7 @@ public class Enfrentamiento {
         return enfrentamientos;
         
     }
+    
     public int idEnfrentamientos(int semana, int id){
         
         
@@ -122,9 +122,6 @@ public class Enfrentamiento {
         PreparedStatement ps=null;
         ResultSet rs=null;
         
-       
-     
-        
         try{
             
             cn = Conexion.getConexion();
@@ -138,8 +135,6 @@ public class Enfrentamiento {
                 ids_Usuarios.add(rs.getInt("id_usuario"));
             
             }
-            
-            
             for(int j = 0; j<new Liga().numL();j++){
                
                 int s = 1;
@@ -167,7 +162,6 @@ public class Enfrentamiento {
                     sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(19+(40*j))+","+ids_Usuarios.get(29+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                System.out.println("--------------Semana "+s+" Liga "+j+1);
                 //++++++++++++++SEMANA 2++++++++++
                 
                 s++;
@@ -192,8 +186,7 @@ public class Enfrentamiento {
                     ps.executeUpdate();
                     sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(18+(40*j))+","+ids_Usuarios.get(28+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
-                    ps.executeUpdate();
-                System.out.println("--------------Semana "+s+" Liga "+j+1);    
+                    ps.executeUpdate();  
                     //++++++++++++++SEMANA 3++++++++++
                 
                 s++;
@@ -219,7 +212,6 @@ public class Enfrentamiento {
                     sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(17+(40*j))+","+ids_Usuarios.get(27+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                System.out.println("--------------Semana "+s+" Liga "+j+1);  
                     //++++++++++++++SEMANA 4++++++++++
                 
                 s++;
@@ -244,8 +236,7 @@ public class Enfrentamiento {
                     ps.executeUpdate();
                     sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(16+(40*j))+","+ids_Usuarios.get(26+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
-                    ps.executeUpdate();
-                System.out.println("--------------Semana "+s+" Liga "+j+1);    
+                    ps.executeUpdate();   
                     //++++++++++++++SEMANA 5++++++++++
                 
                 s++;
@@ -270,8 +261,7 @@ public class Enfrentamiento {
                     ps.executeUpdate();
                     sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(15+(40*j))+","+ids_Usuarios.get(25+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
-                    ps.executeUpdate();
-                 System.out.println("--------------Semana "+s+" Liga "+j+1);   
+                    ps.executeUpdate();   
                     //++++++++++++++SEMANA 6++++++++++
                 
                 s++;
@@ -286,7 +276,6 @@ public class Enfrentamiento {
                     }
                 
                 }
-                System.out.println("--------------Semana "+s+" Liga "+j+1);
                 //++++++++++++++SEMANA 7++++++++++
                     
                 s++;
@@ -309,8 +298,6 @@ public class Enfrentamiento {
 
                 }
                 
-                
-                System.out.println("--------------Semana "+s+" Liga "+j+1);
                 //++++++++++++++SEMANA 8++++++++++
                     
                 s++;
@@ -328,7 +315,6 @@ public class Enfrentamiento {
                     }
                 
                 }
-                System.out.println("--------------Semana "+s+" Liga "+j+1);
                 //++++++++++++++SEMANA 9++++++++++
                 
                 s++;
@@ -342,19 +328,18 @@ public class Enfrentamiento {
                     ps.executeUpdate();
                 }
                     
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(30+(40*j))+","+ids_Usuarios.get(40*j)+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(35+(40*j))+","+ids_Usuarios.get(40*j)+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(35+(40*j))+","+ids_Usuarios.get(5+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(30+(40*j))+","+ids_Usuarios.get(5+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(20+(40*j))+","+ids_Usuarios.get(10+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(25+(40*j))+","+ids_Usuarios.get(10+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(25+(40*j))+","+ids_Usuarios.get(15+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(20+(40*j))+","+ids_Usuarios.get(15+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                 System.out.println("--------------Semana "+s+" Liga "+j+1);
                 //++++++++++++++SEMANA 10++++++++++
                 
                 s++;
@@ -368,19 +353,18 @@ public class Enfrentamiento {
                     ps.executeUpdate();
                 }
                     
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(31+(40*j))+","+ids_Usuarios.get(1+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(36+(40*j))+","+ids_Usuarios.get(1+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(36+(40*j))+","+ids_Usuarios.get(6+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(31+(40*j))+","+ids_Usuarios.get(6+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(21+(40*j))+","+ids_Usuarios.get(11+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(26+(40*j))+","+ids_Usuarios.get(11+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(26+(40*j))+","+ids_Usuarios.get(16+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(21+(40*j))+","+ids_Usuarios.get(16+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                System.out.println("--------------Semana "+s+" Liga "+j+1);
                 //++++++++++++++SEMANA 11++++++++++
                 
                 s++;
@@ -394,19 +378,18 @@ public class Enfrentamiento {
                     ps.executeUpdate();
                 }
                     
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(32+(40*j))+","+ids_Usuarios.get(2+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(37+(40*j))+","+ids_Usuarios.get(2+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(37+(40*j))+","+ids_Usuarios.get(7+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(32+(40*j))+","+ids_Usuarios.get(7+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(22+(40*j))+","+ids_Usuarios.get(12+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(27+(40*j))+","+ids_Usuarios.get(12+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(27+(40*j))+","+ids_Usuarios.get(17+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(22+(40*j))+","+ids_Usuarios.get(17+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                System.out.println("--------------Semana "+s+" Liga "+j+1);
                 //++++++++++++++SEMANA 12++++++++++
                 
                 s++;
@@ -420,19 +403,18 @@ public class Enfrentamiento {
                     ps.executeUpdate();
                 }
                     
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(33+(40*j))+","+ids_Usuarios.get(3+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(38+(40*j))+","+ids_Usuarios.get(3+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(38+(40*j))+","+ids_Usuarios.get(8+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(33+(40*j))+","+ids_Usuarios.get(8+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(23+(40*j))+","+ids_Usuarios.get(13+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(28+(40*j))+","+ids_Usuarios.get(13+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(28+(40*j))+","+ids_Usuarios.get(18+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(23+(40*j))+","+ids_Usuarios.get(18+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                System.out.println("--------------Semana "+s+" Liga "+j+1);
                 //++++++++++++SEMANA 13+++++++++++++++
                 
                 s++;
@@ -446,24 +428,55 @@ public class Enfrentamiento {
                     ps.executeUpdate();
                 }
                     
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(34+(40*j))+","+ids_Usuarios.get(4+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(39+(40*j))+","+ids_Usuarios.get(4+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(39+(40*j))+","+ids_Usuarios.get(9+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(34+(40*j))+","+ids_Usuarios.get(9+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(24+(40*j))+","+ids_Usuarios.get(14+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(29+(40*j))+","+ids_Usuarios.get(14+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(29+(40*j))+","+ids_Usuarios.get(19+(40*j))+","+s+","+(j+1)+")";
+                    sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES("+ids_Usuarios.get(24+(40*j))+","+ids_Usuarios.get(19+(40*j))+","+s+","+(j+1)+")";
                     ps = cn.prepareStatement(sql); 
                     ps.executeUpdate();
-                 System.out.println("--------------Semana "+s+" Liga "+j+1);   
             }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                //rs.close();
+                ps.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+         
+    
+    }
+    
+    public void crearS14(int id1, int id2, int id3, int id4, int id5, int id6, int liga){
+        
+        Connection cn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        
+        try{
             
-            
-       
-
+            cn = Conexion.getConexion();
+            String sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga, ganador) VALUES( "+id1+", "+id1+", 14, "+liga+", "+id1+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+id3+", "+id5+", 14, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga, ganador) VALUES( "+id2+", "+id2+", 14, "+liga+", "+id2+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+id4+", "+id6+", 14, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+                    
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -475,14 +488,204 @@ public class Enfrentamiento {
             }
         }
         
-        
-        
-    
-            
-    
     }
     
-    public int checarTiempo(){return porcentaje;}
+    public void crearS15(){
+        
+        Connection cn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        int id1 = 0, id2 = 0, id3 = 0, id4 = 0, idd1 = 0, idd2 = 0, idd3 = 0, idd4 = 0;
+        
+        try{
+            
+            cn = Conexion.getConexion();
+            
+            String sql;
+            
+            for(int liga = 1; liga<=(new Liga().numL()); liga++){
+                
+            sql="SELECT ganador FROM enfrenL where semana = ?  and liga = ?";
+            ps=cn.prepareStatement(sql);
+            ps.setInt(1, 14);
+            ps.setInt(2, liga);
+            rs=ps.executeQuery();
+            int cont = 1;
+            while(rs.next()){
+                switch(cont){
+                    case 1:
+                        id1 = rs.getInt("ganador");
+                    break;
+                    case 2:
+                        id2 = rs.getInt("ganador");
+                    break;
+                    case 3:
+                        id3 = rs.getInt("ganador");
+                    break;
+                    case 4:
+                        id4 = rs.getInt("ganador");
+                    break;
+                    case 5:
+                        idd1 = rs.getInt("ganador");
+                    break;
+                    case 6:
+                        idd2 = rs.getInt("ganador");
+                    break;
+                    case 7:
+                        idd3 = rs.getInt("ganador");
+                    break;
+                    case 8:
+                        idd4 = rs.getInt("ganador");
+                    break;
+                }
+                cont++;
+            }
+            
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+id1+", "+id3+", 15, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+id2+", "+id4+", 15, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+idd1+", "+idd3+", 15, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+idd2+", "+idd4+", 15, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+                
+            }
+                    
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                //rs.close();
+                ps.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        
+    }
+    
+    public void crearS16(){
+        
+        Connection cn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        int id1 = 0, id2 = 0, idd1 = 0, idd2 = 0;
+        
+        try{
+            
+            cn = Conexion.getConexion();
+            
+            String sql;
+            
+            for(int liga = 1; liga<=(new Liga().numL()); liga++){
+                
+            sql="SELECT ganador FROM enfrenL where semana = ?  and liga = ?";
+            ps=cn.prepareStatement(sql);
+            ps.setInt(1, 15);
+            ps.setInt(2, liga);
+            rs=ps.executeQuery();
+            int cont = 1;
+            while(rs.next()){
+                switch (cont){
+                    case 1:
+                        id1 = rs.getInt("ganador");
+                    break;
+                    case 2:
+                        id2 = rs.getInt("ganador");
+                    break;
+                    case 3:
+                        idd1 = rs.getInt("ganador");
+                    break;
+                    case 4:
+                        idd2 = rs.getInt("ganador");
+                    break;
+                }
+                cont++;
+            }
+            
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+id1+", "+id2+", 16, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+idd1+", "+idd2+", 16, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+                
+            }
+                    
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                //rs.close();
+                ps.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        
+    }
+    
+    public void crearS17(){
+        
+        Connection cn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        int id1 = 0, idd1 = 0;
+        
+        try{
+            
+            cn = Conexion.getConexion();
+            
+            String sql;
+            
+            for(int liga = 1; liga<=(new Liga().numL()); liga++){
+                
+            sql="SELECT ganador FROM enfrenL where semana = ?  and liga = ?";
+            ps=cn.prepareStatement(sql);
+            ps.setInt(1, 16);
+            ps.setInt(2, liga);
+            rs=ps.executeQuery();
+            int cont = 1;
+            while(rs.next()){
+                switch (cont){
+                    case 1:
+                        id1 = rs.getInt("ganador");
+                    break;
+                    case 2:
+                        idd1 = rs.getInt("ganador");
+                    break;
+                }
+                cont++;
+            }
+            
+            sql = "INSERT INTO enfrentamiento (visitante,local,semana,liga) VALUES( "+id1+", "+idd1+", 17, "+liga+")";
+            ps = cn.prepareStatement(sql); 
+            ps.executeUpdate();
+                
+            }
+                    
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                //rs.close();
+                ps.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        
+    }
+    
+    public int checarTiempo(){
+        return porcentaje;
+    }
+    
     public int getId_enfrentamiento() {
         return id_enfrentamiento;
     }
