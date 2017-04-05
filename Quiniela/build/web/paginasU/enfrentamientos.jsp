@@ -19,7 +19,7 @@ if(sesion.getAttribute("usuario") == null){
 		<link rel="shortcut icon" type="image/x-icon" href="IMG/IC.ico">
         <title>CALENDARIO</title>
         <link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
-        <link href="../CSS/enfrentamientos.css" rel="stylesheet" type="text/css"/>
+        <link href="../CSS/enfrenta.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="../CSS/estilos2.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="../fonts/style.css" media="screen"/>
                

@@ -37,7 +37,8 @@ public class subirResultados extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+            String e1 = request.getParameter("e1");
+            String e2 = request.getParameter("e2");
             int semana =  Integer.parseInt(request.getParameter("semana"));
             int local =  Integer.parseInt(request.getParameter("local"));
             int visitante =  Integer.parseInt(request.getParameter("visitante"));
@@ -53,16 +54,16 @@ public class subirResultados extends HttpServlet {
             if(par!=null){
                 
                 Survival wuera = new Survival();
-                Usuario morena = new Usuario();
+                wuera.actualizar(semana, Integer.parseInt(ganadoreal), local, visitante);
                 
-                Vector<Usuario> usuarios=new Usuario().mostrarUsuarios("1");
-                Vector<Survival> selected;
                 Quinela wuiris = new Quinela();
                 wuiris.guardarAcierto(pr_mar, mayoreal, menoreal, id_partido, semana, Integer.parseInt(ganadoreal));
                 
                 Enfrentamiento e = new Enfrentamiento();
+                if(pr_mar){
+                    
+                }
                 if(semana==14 && pr_mar==true){
-                    System.out.println("bien");
                     e.crearS15();
                 }
                 if(semana==15 && pr_mar==true){
@@ -72,7 +73,7 @@ public class subirResultados extends HttpServlet {
                     e.crearS17();
                 }
                 
-                response.sendRedirect("paginasA/resultadosP.jsp?sem="+semana);
+                response.sendRedirect("paginasA/resultadosP.jsp?sem="+semana+"&e1="+e1+"&e2="+e2);
             }else{
                 response.sendRedirect("error.jsp");
             }

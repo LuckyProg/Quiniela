@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -220,23 +223,31 @@ public class Survival {
         
     }
     
-    public Survival actualizar(int id_usuario, int semana, boolean vida){
+    public Survival actualizar(int semana, int ganadoreal, int local, int visitante){
         
         Survival sur = null;
         Connection cn=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
-        
+        int perdedoreal = 100;
         
         try{
-            
-            sur= new Survival();
             cn = Conexion.getConexion();
-            String sql = "UPDATE survival SET gana=? WHERE id_usuario=? and semana=?";
+            String sql = "UPDATE survival SET gana=? WHERE semana=? and id_equipo = ?";
             ps = cn.prepareStatement(sql);
-            ps.setBoolean(1, vida);
-            ps.setInt(2, id_usuario);
-            ps.setInt(3, semana);
+            ps.setBoolean(1, true);
+            ps.setInt(2, semana);
+            ps.setInt(3, ganadoreal);   
+             
+            ps.executeUpdate();
+            
+            perdedoreal = ganadoreal == local ? visitante : local;
+            
+            sql = "UPDATE survival SET gana=? WHERE semana=? and id_equipo = ?";
+            ps = cn.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setInt(2, semana);
+            ps.setInt(3, perdedoreal);   
              
             ps.executeUpdate();
 
@@ -254,6 +265,82 @@ public class Survival {
         }
         
         return sur;
+        
+    }
+    
+    public Survival matar(int semana, int ganadoreal){
+        
+        Survival sur = null;
+        Connection cn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        
+        
+        try{
+            cn = Conexion.getConexion();
+            
+            String sql = "UPDATE survival SET gana=? WHERE gana!=? and semana=?";
+            ps = cn.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setBoolean(2, true);
+            ps.setInt(3, semana); 
+
+            ps.executeUpdate();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            sur = null;
+        }finally{
+            try{
+                //rs.close();
+                ps.close();
+            }catch(SQLException ex){
+                sur = null;
+                ex.printStackTrace();
+            }
+        }
+        
+        return sur;
+        
+    }
+    
+    public boolean bloqueo (int semana){
+        
+        Connection cn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        boolean bloqueo = true;
+        
+        try{
+            cn = Conexion.getConexion();
+            
+            String sql = "select fecha from partido where semana = ? order by fecha limit 1";
+            ps = cn.prepareStatement(sql);
+            ps.setInt(1, semana); 
+
+            rs = ps.executeQuery();
+            while(rs.next()){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+                Quinela wuera = new Quinela();
+                Date servidor = sdf.parse(wuera.obtenerFecha());
+                Date partido = sdf.parse(rs.getString("fecha") + ":00.0");
+                if(servidor.before(partido)){ 
+                    bloqueo = false;
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                //rs.close();
+                ps.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        
+        return bloqueo;
         
     }
     

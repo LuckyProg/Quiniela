@@ -57,13 +57,7 @@ if(sesion.getAttribute("usuario") == null){
                             </tr>
                             <tr>
                                 <form name="f1" method="post" action="../modificarSurvival">
-                                <td><%
-                                    int uno = semana-1;
-                                    if(wuera.noseleccionado(apodo, uno)==true && semana!=1){}
-                                    else{
-                                    %>
-                                    <%if(wuera.noseleccionado(apodo, semana)==true){%>
-                                    
+                                <td>
                                         <select name="id_equipo">
                                             <%  
                                                 boolean sel = false, aux = false;
@@ -93,10 +87,11 @@ if(sesion.getAttribute("usuario") == null){
                                         </select>
                                 </td>
                                 <td>
+                                    <%if(!wuera.bloqueo(semana)){%>
                                     <input type="hidden" name="apodo" value='<%=sesion.getAttribute("usuario")%>'>
                                     <input type="hidden" name="semana" value=<%=semana%>>
                                     <input align="center" id="bb" type="submit" value="Guardar">
-                                    <%}}%>
+                                    <%}%>
                                 </td>
                                 </form>
                             </tr>

@@ -36,7 +36,7 @@ public class Enfrentamiento {
         Connection cn=null;
         PreparedStatement pr=null;
         ResultSet rs=null;
-        
+        int dl, ds;
         
         try{
             cn=Conexion.getConexion();
@@ -50,15 +50,23 @@ public class Enfrentamiento {
                 enfr.setVid(rs.getInt("vid"));
                 enfr.setVisitante(rs.getString("visitante"));
                 enfr.setVp(rs.getInt("vp"));
-                enfr.setVdl(rs.getInt("vdl"));
-                enfr.setVds(rs.getInt("vds"));
-                enfr.setLds(rs.getInt("lds"));
-                enfr.setLdl(rs.getInt("ldl"));
+                dl = rs.getString("vdl")!=null ? rs.getInt("vdl") : new Puntaje().peordl(semana);
+                ds = rs.getString("vds")!=null ? rs.getInt("vds") : new Puntaje().peords(semana);
+                enfr.setVdl(dl);
+                enfr.setVds(ds);
+                dl = 0;
+                ds = 0;
+                dl = rs.getString("ldl")!=null ? rs.getInt("ldl") : new Puntaje().peordl(semana);
+                ds = rs.getString("lds")!=null ? rs.getInt("lds") : new Puntaje().peords(semana);
+                enfr.setLds(ds);
+                enfr.setLdl(dl);
                 enfr.setLp(rs.getInt("lp"));
                 enfr.setLid(rs.getInt("lid"));
                 enfr.setLocal(rs.getString("local"));
                 enfr.setGanador(rs.getInt("ganador"));
                 enfrentamientos.add(enfr);
+                dl = 0;
+                ds = 0;
             }
         }catch(SQLException ex){
             ex.printStackTrace();

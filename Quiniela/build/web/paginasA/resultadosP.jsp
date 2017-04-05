@@ -16,6 +16,8 @@ if(sesion.getAttribute("usuario") == null){
 
     }
     String apodo = String.valueOf(sesion.getAttribute("usuario"));
+    String e1 = request.getParameter("e1");
+    String e2 = request.getParameter("e2");
 %>
 <html>
     <head>
@@ -24,7 +26,11 @@ if(sesion.getAttribute("usuario") == null){
         <link rel="stylesheet" type="text/css" href="../CSS/general.css" media="screen" />
         <script type="text/javascript" src="../JS/val.js"></script>
         <title>RESULTADOS</title>
-
+        <%if(e1 != null && e2!=null){%>
+        <script type="text/javascript">
+            alert("Se han modificado los resultados de: <%=e1%> vs <%=e2%>");
+        </script>
+        <%}%>
     </head>
     <body onpaste="return false;">
          <jsp:include page="navegadorA.jsp" flush="true">
@@ -91,7 +97,11 @@ if(sesion.getAttribute("usuario") == null){
                                     <td>
                                         <input name="menoreal" type="number" onkeypress="return soloNum(event)" value="<%=par.getMenoreal()%>">
                                     </td>
-                                    <td><input type="submit" value="Guardar"></td>
+                                    <td>
+                                    <input type="hidden" name="e1" value="<%=par.getVisitante()%>">
+                                    <input type="hidden" name="e2" value="<%=par.getLocal()%>">
+                                    <input type="submit" value="Guardar">
+                                    </td>
                                 </form>
                             </tr>
                      <%}%>

@@ -19,7 +19,7 @@ public class Conexion {
             //String url="jdbc:mysql://mysql22203-quiniela.jl.serv.net.mx/quiniela";
             String usuario="root";
             String clave="n0m3l0";
-            //String clave="IYIrct09221";
+             //String clave="IYIrct09221";
             return DriverManager.getConnection(url,usuario,clave);
         }catch(SQLException ex){
             ex.printStackTrace();

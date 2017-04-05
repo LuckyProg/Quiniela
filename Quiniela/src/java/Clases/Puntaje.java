@@ -44,13 +44,15 @@ public class Puntaje {
             pr=cn.prepareStatement(sql);
             pr.setInt(1, semana);
             rs=pr.executeQuery();
-            
+            int dl, ds;
             while(rs.next()){
                 Puntaje pun=new Puntaje();
                 pun.setNombre(rs.getString("nombre"));
                 pun.setP(rs.getInt("p"));
-                pun.setDl(rs.getInt("dl"));
-                pun.setDs(rs.getInt("ds"));
+                dl = rs.getString("dl")!=null ? rs.getInt("dl") : new Puntaje().peordl(semana);
+                pun.setDl(dl);
+                ds = rs.getString("ds")!=null ? rs.getInt("ds") : new Puntaje().peords(semana);
+                pun.setDs(ds);
                 puntajes.add(pun);
             }
         }catch(SQLException ex){

@@ -103,6 +103,13 @@ public class generarArchivo extends HttpServlet {
         response.setHeader("Expires", "-1");
         response.getOutputStream().write(pene);
         
+        /*filename="repoio.csv";
+        response.setContentType("text/csv");
+        response.setHeader("Content-disposition", "attachment; filename=\""+filename+"\"");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Expires", "-1");
+        response.getOutputStream().write(pene);*/
+        
         }else{
         response.sendRedirect("index.jsp");
         }

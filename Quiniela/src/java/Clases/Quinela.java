@@ -360,6 +360,7 @@ public class Quinela {
                                 ps.executeUpdate();
                                 
                                 usug.add(usu.getId());
+                                
                             }
                             else{
                                 sql = "update pronostico set acierto = ? where id_usuario =? and id_partido =?;";
@@ -434,6 +435,7 @@ public class Quinela {
                 int dsv = 0;
                 int no_liga = 0;
                 int ganador;
+                int aux1, aux2;
                 for(int l = 1; l<=numL; l++){
                     
                     enfrents = new Enfrentamiento().mostrarEnfrentamientos(semana, l);
@@ -444,7 +446,7 @@ public class Quinela {
                         if(E.getLid()==E.getVid()){
                             ganador = E.getLid();
                         }
-                        
+                        if(E.getLid()!=1000){
                         sql = "select l.no_liga, l.conferencia, l.region, l.jg, l.jp, l.je, l.divi, l.afc, l.nfc, p.p, p.dl, p.ds from liga as l, usuario as u, puntaje as p "
                                 + "where l.id_usuario = u.id_usuario and p.id_usuario = u.id_usuario and p.semana = ? and u.id_usuario=?";
                         ps=cn.prepareStatement(sql);
@@ -462,22 +464,24 @@ public class Quinela {
                             afcl = rs.getString("afc");
                             nfcl = rs.getString("nfc");
                             pl = rs.getInt("p");
-                            dll = rs.getInt("dl");
-                            dsl = rs.getInt("ds");
+                            dll = rs.getString("dl")!=null ? rs.getInt("dl") : new Puntaje().peordl(semana);
+                            dsl = rs.getString("ds")!=null ? rs.getInt("ds") : new Puntaje().peords(semana);
                         }
-                        if(E.getLid()==1000){
+                        }
+                        else{
                             pl = new Puntaje().promedio(semana);
                             dll = new Puntaje().peordl(semana);
                             dsl = new Puntaje().peords(semana);
                         }
+                        if(E.getVid()!=1000){
                         sql = "select l.conferencia, l.region, l.jg, l.jp, l.je, l.divi, l.afc, l.nfc, p.p, p.dl, p.ds from liga as l, usuario as u, puntaje as p "
                                 + "where l.id_usuario = u.id_usuario and p.id_usuario = u.id_usuario and p.semana = ? and u.id_usuario=?";
                         ps=cn.prepareStatement(sql);
                         ps.setInt(1, semana);
                         ps.setInt(2, E.getVid());
                         rs=ps.executeQuery();
-                        int aux1 = 0;
-                        int aux2 = 0;
+                        aux1 = 0;
+                        aux2 = 0;
                         while(rs.next()){
                             confv = rs.getString("conferencia");
                             regv = rs.getString("region");
@@ -488,10 +492,11 @@ public class Quinela {
                             afcv = rs.getString("afc");
                             nfcv = rs.getString("nfc");
                             pv = rs.getInt("p");
-                            dlv = rs.getInt("dl");
-                            dsv = rs.getInt("ds");
+                            dlv = rs.getString("dl")!=null ? rs.getInt("dl") : new Puntaje().peordl(semana);
+                            dsv = rs.getString("ds")!=null ? rs.getInt("ds") : new Puntaje().peords(semana);
                         }
-                        if(E.getVid()==1000){
+                        }
+                        else{
                             pv = new Puntaje().promedio(semana);
                             dlv = new Puntaje().peordl(semana);
                             dsv = new Puntaje().peords(semana);
@@ -499,43 +504,58 @@ public class Quinela {
                         
                         if(pl>pv){
                             ganador = E.getLid();
-                            jgl++;
-                            jpv++;
                         }
                         else if(pv>pl){
                             ganador = E.getVid();
-                            jpl++;
-                            jgv++;
                         }
                         else if(pv==pl){
                             if(dll<dlv){
                                 ganador = E.getLid();
-                                jgl++;
-                                jpv++;
                             }
                             else if(dlv<dll){
                                 ganador = E.getVid();
-                                jpl++;
-                                jgv++;
                             }
                             else if(dlv==dll){
                                 if(dsl<dsv){
                                     ganador = E.getLid();
-                                    jgl++;
-                                    jpv++;
                                 }
                                 else if(dsv<dsl){
                                     ganador = E.getVid();
-                                    jpl++;
-                                    jgv++;
                                 }
                                 else if(dsv==dsl){
                                     ganador = 0;
-                                    jel++;
-                                    jev++;
                                 }
                             }
                         }
+                        
+                        if(E.getGanador()!=E.getLid() && ganador == E.getLid()){
+                            jgl++;
+                        }
+                        else if(E.getGanador()==E.getLid() && ganador != E.getLid()){
+                            jgl--;
+                        }
+                        if(E.getGanador()!=E.getVid() && ganador == E.getVid()){
+                            jgv++;
+                        }
+                        else if(E.getGanador()==E.getVid() && ganador != E.getVid()){
+                            jgv--;
+                        }
+                        if(E.getGanador()!=0 && ganador == 0){
+                            jel++;
+                            //jev++;
+                        }
+                        /*else if(E.getGanador()==0 && ganador != 0){
+                            jel--;
+                            jev--;
+                        }*/
+                        
+                        sql = "update enfrentamiento set ganador = ? where semana = ? and visitante = ? and local = ?;";
+                        ps = cn.prepareStatement(sql);
+                        ps.setInt(1,ganador);
+                        ps.setInt(2,semana);
+                        ps.setInt(3,E.getVid());
+                        ps.setInt(4,E.getLid());
+                        ps.executeUpdate();
                         
                         if(confl.equalsIgnoreCase("AMERICANA")){
                             
@@ -720,6 +740,9 @@ public class Quinela {
                             divv = aux1 + "-" + aux2;
                         }
                         
+                        boolean lm = false;
+                        boolean vm = false;
+                        
                         sql = "update enfrentamiento set ganador = ? where semana = ? and visitante = ? and local = ?;";
                         ps = cn.prepareStatement(sql);
                         ps.setInt(1,ganador);
@@ -738,18 +761,20 @@ public class Quinela {
                         ps.setString(6,nfcl);
                         for(Integer i:usug){
                             if(i == E.getLid()){
-                                ps.setInt(7,1);
+                                lm = true;
                             }
                             else{
-                                ps.setInt(7,0);
                             }
                             if(i == E.getVid()){
-                                ps.setInt(8,1);
+                                vm = true;
                             }
                             else{
-                                ps.setInt(8,0);
                             }
                         }
+                        if(lm){ps.setInt(7,1);}
+                        else{ps.setInt(7,0);}
+                        if(vm){ps.setInt(8,1);}
+                        else{ps.setInt(8,0);}
                         ps.setInt(9,E.getLid());
                         ps.setInt(10,no_liga);
                         ps.setString(11,confl);
@@ -757,7 +782,7 @@ public class Quinela {
                         
                         ps.executeUpdate();
                         
-                      ps.executeUpdate();
+                        
                         sql = "update liga set jg = ?, jp = ?, je = ?, divi = ?, afc = ?, nfc = ?, pf = pf + ?, pc = pc + ? where id_usuario = ? and no_liga = ? and conferencia = ? and region = ?;";
                         ps = cn.prepareStatement(sql);
                         ps.setInt(1,jgv);
@@ -766,26 +791,19 @@ public class Quinela {
                         ps.setString(4,divv);
                         ps.setString(5,afcv);
                         ps.setString(6,nfcv);
-                        for(Integer i:usug){
-                            if(i == E.getVid()){
-                                ps.setInt(7,1);
-                            }
-                            else{
-                                ps.setInt(7,0);
-                            }
-                            if(i == E.getLid()){
-                                ps.setInt(8,1);
-                            }
-                            else{
-                                ps.setInt(8,0);
-                            }
-                        }
+                        if(vm){ps.setInt(7,1);}
+                        else{ps.setInt(7,0);}
+                        if(lm){ps.setInt(8,1);}
+                        else{ps.setInt(8,0);}
                         ps.setInt(9,E.getVid());
                         ps.setInt(10,no_liga);
                         ps.setString(11,confv);
                         ps.setString(12,regv);
                         
                         ps.executeUpdate();
+                        
+                        lm = false;
+                        vm = false;
                     }
                     
                 }
